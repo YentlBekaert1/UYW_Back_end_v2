@@ -32,21 +32,23 @@ class StoreOffersRequest extends FormRequest
             'materials' => [],
             'submaterials' => [],
             'category' => ['integer'],
-            'approach' => ['integer'],
-            'url' => ['string'],
-            'contact' => ['string'],
+            'approach' => ['integer', 'required'],
+            'url' => [],
+            'contact' => [],
             'job' => ['string'],
             'status' => ['string'],
             'lat' => '',
-            'lat' => '',
+            'lon' => '',
         ];
     }
 
     public function messages()
     {
         return [
+            'approach.required' => "Please select a value for approach.",
+            'category.required' => "Please select a value for category.",
+            'title.required' => "Please enter a value for title.",
             'description.required' => "Please enter a value for description.",
-            'title.string' => 'HEYYYY use a string',
         ];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\web;
 
 use App\Models\Offers;
 use App\Http\Requests\StoreOffersRequest;
@@ -19,26 +19,29 @@ use App\Models\OfferImage;
 use App\Models\SubMaterial;
 use App\Models\Tag;
 use App\Models\User;
+use App\Http\Controllers\Controller;
 
 class OffersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return ResourceCollection
-     */
-    public function index(Request $request)
-    {
-        //abort(404);
-        $pageSize = $request->page_size ?? 20;
-        $offers = Offers::query()->filter($request)->with(['images','location','materials','submaterials']);
-        //->where('status','=', 1)
-        $offers = $offers->where('status','=', 1)->paginate($pageSize);
 
-        return OffersResource::collection($offers);
+    public function web(Request $request)
+    {
+        $pageSize = $request->page_size ?? 20;
+        $offers = Offers::query()->paginate($pageSize);
+        return view('web.offers.index', compact('offers'));
     }
 
+    public function create()
+    {
+        $categories = Categories::All();
+        $materials = Material::All();
+        $submaterials = SubMaterial::All();
+        $users = User::All();
+        $approaches=Approach::All();
+        $tags=Tag::All();
 
+        return view('web.offers.create')->with('categories', $categories)->with('materials', $materials)->with('submaterials', $submaterials)->with('users', $users)->with('approaches', $approaches)->with('tags', $tags);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -47,7 +50,7 @@ class OffersController extends Controller
      */
     public function store(StoreOffersRequest $request, OffersRepository $repository)
     {
-        $created = $repository->create($request->only([
+        $created = $repository->create_admin($request->only([
             'title',
             'description',
             'tags',
@@ -70,8 +73,8 @@ class OffersController extends Controller
             'images',
             'user_id'
         ]));
-
-        return new OffersResource($created);
+// return $request;
+       return view('web.offers.index', compact('created'));
     }
 
     /**
@@ -140,91 +143,15 @@ class OffersController extends Controller
           ]);
     }
 
-      /**
-     * Display the specified resource.
-     *
-     * @param  \App\Http\Requests\Request  $request
-     * @param  \App\Models\Offers  $offers
-     * @return \Illuminate\Http\Response
-     */
-    public function add_offer_to_favorites_user($id, OffersRepository $repository)
+
+
+    public function edit(Request $request, Offers $offer)
     {
-        $offer = Offers::find($id);
-        $res = $repository->add_to_favorites($offer);
-
-       return $res;
-    }
-
-     /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-
-    public function remove_offer_from_favorites_user($id, OffersRepository $repository)
-    {
-        $offer = Offers::find($id);
-        $res = $repository->remove_from_favorites($offer);
-
-       return $res;
-    }
-
-          /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function add_tag_to_offer(Request $request, Offers $offer, OffersRepository $repository)
-    {
-
-        $offer = $repository->add_tag($offer, $request->only([
-            'tag_id',
-        ]));
-
-       return $offer;
-    }
-
-     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Http\Requests\Request  $request
-     * @param  \App\Models\Offers  $offers
-     * @return \Illuminate\Http\Response
-     */
-
-    public function remove_tag_from_offer(Request $request, Offers $offer, OffersRepository $repository)
-    {
-
-        $offer = $repository->remove_tag($offer, $request->only([
-            'tag_id',
-        ]));
-
-       return $offer;
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-
-    public function increment_offer_views($id, OffersRepository $repository)
-    {
-        $offer = Offers::find($id);
-        $res = $repository->increment_offer_views($offer);
-
-       return $res;
+        return view('web.offers.edit', compact('offer'));
     }
 
 
-    public function searchterms(Request $request)
-    {
-        $query_offers =  Offers::query()->where('title', "LIKE",  "%{$request->name}%")->get();
 
-        return  $query_offers;
-    }
+
 
 }

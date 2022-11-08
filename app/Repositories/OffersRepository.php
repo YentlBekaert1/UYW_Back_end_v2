@@ -358,5 +358,95 @@ class OffersRepository extends BaseRepository
 
     }
 
+    public function create_admin(array $attributes)
+    {
+        return DB::transaction(function () use ($attributes) {
+            if (Auth::check()) {
+                $created = Offers::query()->create([
+                    'title' => data_get($attributes, 'title', 'Untitled'),
+                    'description' => data_get($attributes, 'description'),
+                    'categories_id' => data_get($attributes, 'category'),
+                    'approaches_id' => data_get($attributes, 'approach'),
+                    'url' => data_get($attributes, 'url'),
+                    'job' => data_get($attributes, 'job'),
+                    'status' => data_get($attributes, 'status'),
+                    'contact' => data_get($attributes, 'contact'),
+                    'user_id' => data_get($attributes, 'user_id'),
+                ]);
+
+                if(data_get($attributes, 'tags')){
+                    //create the pivot between tags and offers
+                    //sync gaat de tags verwijderen die niet meer in de array staan
+                    foreach(explode(",", data_get($attributes, 'tags')) as $tag){
+                        $created->tags()->attach($tag);
+                    }
+                }
+
+                if(data_get($attributes, 'newtags')){
+                    //nieuwe tags aanmaken
+                    foreach(explode(",",data_get($attributes, 'newtags')) as $tag){
+                        $new = Tag::query()->create([
+                            'name' => $tag,
+                        ]);
+                        $created->tags()->attach($new);
+                    }
+                }
+
+                if(data_get($attributes, 'materials')){
+                    //create the pivot between tags and offers
+                    //sync gaat de tags verwijderen die niet meer in de array staan
+                    foreach(explode(",", data_get($attributes, 'materials')) as $material){
+                        $created->materials()->attach($material);
+                    }
+                }
+
+                if(data_get($attributes, 'submaterials')){
+                    //create the pivot between tags and offers
+                    //sync gaat de tags verwijderen die niet meer in de array staan
+                    foreach(explode(",", data_get($attributes, 'submaterials')) as $submaterial){
+                        $created->submaterials()->attach($submaterial);
+                    }
+                }
+
+                if(data_get($attributes, 'lat') && data_get($attributes, 'lat')){
+                    $created_loction = Locations::query()->create([
+                        'lat' => data_get($attributes, 'lat'),
+                        'lon' => data_get($attributes, 'lon'),
+                        'street' => data_get($attributes, 'street'),
+                        'number' => data_get($attributes, 'number'),
+                        'postal' => data_get($attributes, 'postal'),
+                        'city' => data_get($attributes, 'city'),
+                        'country' => data_get($attributes, 'country'),
+                        'offers_id' => $created->id,
+                    ]);
+                    throw_if(!$created_loction, GeneralJsonException::class, 'Failed to location. ');
+                }
+
+                if(data_get($attributes, 'images'))
+                {
+                    foreach (data_get($attributes, 'images') as $imagefile) {
+
+                        $path = $imagefile->store('/images/resource', ['disk' => 'my_files']);
+
+                        $created_image = OfferImage::query()->create([
+                            'filename' => $path,
+                            'offer_id' => $created->id,
+                        ]);
+                        throw_if(!$created_image, GeneralJsonException::class, 'Failed to create item image. ');
+                    }
+                }
+
+
+                throw_if(!$created, GeneralJsonException::class, 'Failed to offer. ');
+                event(new OffersCreated($created));
+
+                return $created;
+            }
+            else{
+                return response('{"message":"not authenticated"}', 200);
+            }
+        });
+    }
+
 
 }
