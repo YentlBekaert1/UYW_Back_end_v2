@@ -91,6 +91,18 @@ class OffersController extends Controller
         return OffersResource::collection($item->get())->response();
     }
 
+    public function edit(Request $request, Offers $offer)
+    {
+        $categories = Categories::All();
+        $materials = Material::All();
+        $users = User::All();
+        $approaches=Approach::All();
+        $tags=Tag::All();
+        $images=OfferImage::Select()->where('offer_id',"=", $offer)->get();
+        $offer=Offers::with(['images','location','materials','submaterials','tags'])->find($offer->id);
+        return view('web.offers.edit')->with('offer', $offer)->with('images', $images)->with('categories', $categories)->with('tags', $tags)->with('materials', $materials)->with('users', $users)->with('approaches', $approaches);
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -101,7 +113,7 @@ class OffersController extends Controller
     public function update(Request $request, Offers $offer, OffersRepository $repository)
     {
 
-        $offer = $repository->update($offer, $request->only([
+        $offer = $repository->update_admin($offer, $request->only([
             'title',
             'description',
             'tags',
@@ -120,11 +132,9 @@ class OffersController extends Controller
             'postal',
             'city',
             'country',
-            'newimages',
-            'editimages'
+            'images'
         ]));
-
-        return $offer;
+        return view('web.offers.index', compact('offer'));
     }
 
     /**
@@ -142,16 +152,5 @@ class OffersController extends Controller
               'data' => $deleted,
           ]);
     }
-
-
-
-    public function edit(Request $request, Offers $offer)
-    {
-        return view('web.offers.edit', compact('offer'));
-    }
-
-
-
-
 
 }

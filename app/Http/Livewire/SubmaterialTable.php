@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Submaterial;
+use App\Models\SubMaterial;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\Builder;
@@ -51,7 +51,7 @@ final class SubmaterialTable extends PowerGridComponent
     */
     public function datasource(): ?Builder
     {
-        return Submaterial::query();
+        return SubMaterial::query();
     }
 
     /*

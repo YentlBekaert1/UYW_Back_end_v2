@@ -448,5 +448,111 @@ class OffersRepository extends BaseRepository
         });
     }
 
+     /**
+     * @param Offers $offer
+     * @param array $attributes
+     * @return mixed
+     */
+    public function update_admin($offer, array $attributes)
+    {
+
+        return DB::transaction(function () use($offer, $attributes) {
+            if (Auth::check()) {
+                $updated = $offer->update([
+                    'title' => data_get($attributes, 'title', $offer->title),
+                    'description' => data_get($attributes, 'description', $offer->description),
+                    'categories_id' => data_get($attributes, 'category', $offer->categories_id),
+                    'approaches_id' => data_get($attributes, 'approach', $offer->approaches_id),
+                    'url' => data_get($attributes, 'url', $offer->url),
+                    'job' => data_get($attributes, 'job', $offer->job),
+                    'contact' => data_get($attributes, 'contact', $offer->contact),
+                    'status' => data_get($attributes, 'status', $offer->status),
+                    'user_id' => data_get($attributes, 'user_id', $offer->user_id),
+                ]);
+
+                $offer->tags()->detach();
+                if(data_get($attributes, 'tags')){
+                    //create the pivot between tags and offers
+                    //sync gaat de tags verwijderen die niet meer in de array staan
+                    foreach(explode(",", data_get($attributes, 'tags')) as $tag){
+                        $offer->tags()->attach($tag);
+                    }
+                }
+
+                if(data_get($attributes, 'newtags')){
+                    //nieuwe tags aanmaken
+                    foreach(explode(",",data_get($attributes, 'newtags')) as $tag){
+                        $new = Tag::query()->create([
+                            'name' => $tag,
+                        ]);
+                        $offer->tags()->attach($new);
+                    }
+                }
+                $offer->materials()->detach();
+                if(data_get($attributes, 'materials')){
+                    //create the pivot between tags and offers
+                    //sync gaat de tags verwijderen die niet meer in de array staan
+                    foreach(explode(",", data_get($attributes, 'materials')) as $material){
+                        $offer->materials()->attach($material);
+                    }
+                }
+                $offer->submaterials()->detach();
+                if(data_get($attributes, 'submaterials')){
+                    //create the pivot between tags and offers
+                    //sync gaat de tags verwijderen die niet meer in de array staan
+                    foreach(explode(",", data_get($attributes, 'submaterials')) as $submaterial){
+                        $offer->submaterials()->attach($submaterial);
+                    }
+                }
+
+                if(data_get($attributes, 'lat') && data_get($attributes, 'lat')){
+                    $updated =  Locations::find($offer->location->id)->update([
+                        'lat' => data_get($attributes, 'lat' ,$offer->lat),
+                        'lon' => data_get($attributes, 'lon', $offer->lon),
+                        'street' => data_get($attributes, 'street', $offer->street),
+                        'number' => data_get($attributes, 'number', $offer->number),
+                        'postal' => data_get($attributes, 'postal', $offer->postal),
+                        'city' => data_get($attributes, 'city', $offer->city),
+                        'country' => data_get($attributes, 'country', $offer->country),
+                        'offers_id' => data_get($attributes, 'offers_id', $offer->id),
+                    ]);
+                    throw_if(!$updated, GeneralJsonException::class, 'Failed to update location');
+                }
+
+                if(data_get($attributes, 'images'))
+                {
+                    $old_images = OfferImage::query()->where('offer_id', '=', $offer->id);
+
+                    foreach ($old_images  as $image) {
+                        if(File::exists($image->filename) ) {
+                            File::delete($image->filename);
+                        }
+                        $deleted = $image->forceDelete();
+                    }
+
+                    foreach (data_get($attributes, 'images') as $imagefile) {
+
+                        $path = $imagefile->store('/images/resource', ['disk' => 'my_files']);
+                        $created_image = OfferImage::query()->create([
+                            'filename' => $path,
+                            'offer_id' => $offer->id,
+                        ]);
+                        throw_if(!$created_image, GeneralJsonException::class, 'Failed to create item image. ');
+                    }
+
+
+                }
+
+                throw_if(!$updated, GeneralJsonException::class, 'Failed to update offer');
+                event(new OffersUpdated($offer));
+
+                return $offer;
+                }
+                else{
+                    return response('{"message":"not authenticated"}', 200);
+                }
+        });
+    }
+
 
 }

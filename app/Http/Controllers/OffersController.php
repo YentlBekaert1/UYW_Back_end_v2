@@ -83,7 +83,7 @@ class OffersController extends Controller
     public function show(Offers $offer)
     {
 
-        $item = Offers::with(['images','location','materials','submaterials'])->where('id', $offer->id);
+        $item = Offers::with(['images','location','materials','submaterials','tags'])->where('id', $offer->id)->where('status','=', 1);
 
         return OffersResource::collection($item->get())->response();
     }

@@ -13,6 +13,7 @@ Route::middleware([])
         Route::post('/offersstore', [\App\Http\Controllers\web\OffersController::class, 'store'])->name('store');
 
         Route::get('/offersedit/{offer}', [\App\Http\Controllers\web\OffersController::class, 'edit'])->name('edit');
+        Route::patch('/offersupdate/{offer}', [\App\Http\Controllers\web\OffersController::class, 'update'])->name('update');
         Route::delete('/offersdestroy/{offer}', [\App\Http\Controllers\web\OffersController::class, 'destroy'])->name('destroy');
 });
 
