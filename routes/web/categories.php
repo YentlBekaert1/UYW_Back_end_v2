@@ -15,6 +15,7 @@ Route::middleware([])
         Route::get('/categoriesedit/{categorie}', [\App\Http\Controllers\web\CategoriesController::class, 'edit'])->name('edit');
         Route::patch('/categoriesedit/{categorie}', [\App\Http\Controllers\web\CategoriesController::class, 'update'])->name('update');
 
+        Route::get('/categoriesdelete/{categorie}', [\App\Http\Controllers\web\CategoriesController::class, 'delete'])->name('delete');
         Route::delete('/categoriesdestroy/{categorie}', [\App\Http\Controllers\web\CategoriesController::class, 'destroy'])->name('destroy');
 
 });

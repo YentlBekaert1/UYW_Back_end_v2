@@ -14,6 +14,8 @@ Route::middleware([])
 
         Route::get('/offersedit/{offer}', [\App\Http\Controllers\web\OffersController::class, 'edit'])->name('edit');
         Route::patch('/offersupdate/{offer}', [\App\Http\Controllers\web\OffersController::class, 'update'])->name('update');
+
+        Route::get('/offersdelete/{offer}', [\App\Http\Controllers\web\OffersController::class, 'delete'])->name('delete');
         Route::delete('/offersdestroy/{offer}', [\App\Http\Controllers\web\OffersController::class, 'destroy'])->name('destroy');
 });
 

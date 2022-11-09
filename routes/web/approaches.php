@@ -15,6 +15,7 @@ Route::middleware([])
         Route::get('/approachesedit/{approach}', [\App\Http\Controllers\web\ApproachController::class, 'edit'])->name('edit');
         Route::patch('/approachesupdate/{approach}', [\App\Http\Controllers\web\ApproachController::class, 'update'])->name('update');
 
+        Route::get('/approachesdelete/{approach}', [\App\Http\Controllers\web\ApproachController::class, 'delete'])->name('delete');
         Route::delete('/approachesdestroy/{approach}', [\App\Http\Controllers\web\ApproachController::class, 'destroy'])->name('destroy');
 });
 

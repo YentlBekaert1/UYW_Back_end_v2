@@ -229,8 +229,8 @@ final class OffersTable extends PowerGridComponent
                ->caption('Delete')
                ->class('bg-red-600 cursor-pointer text-white px-3 m-1 rounded text-sm')
                ->target("")
-               ->route('web.offers.destroy', ['id'])
-               ->method('delete')
+               ->route('web.offers.delete', ['id'])
+               ->method('get')
         ];
     }
 

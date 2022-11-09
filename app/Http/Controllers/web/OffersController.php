@@ -20,6 +20,7 @@ use App\Models\SubMaterial;
 use App\Models\Tag;
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 
 class OffersController extends Controller
 {
@@ -117,6 +118,7 @@ class OffersController extends Controller
             'title',
             'description',
             'tags',
+            'newtags',
             'materials',
             'submaterials',
             'category',
@@ -137,6 +139,12 @@ class OffersController extends Controller
         return view('web.offers.index', compact('offer'));
     }
 
+    public function delete(Request $request, Offers $offer)
+    {
+
+        return view('web.offers.delete')->with('offer', $offer);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -146,11 +154,18 @@ class OffersController extends Controller
     public function destroy(Offers $offer, OffersRepository $repository)
     {
           //
-          $deleted = $repository->forceDelete($offer);
 
-          return new JsonResponse([
-              'data' => $deleted,
-          ]);
+        $old_images = OfferImage::query()->where('offer_id', '=', $offer->id)->get();
+        foreach ($old_images  as $image) {
+            if(File::exists($image->filename) ) {
+                File::delete($image->filename);
+            }
+            $deleted = $image->forceDelete();
+        }
+
+        $deleted = $repository->forceDelete($offer);
+
+        return view('web.offers.index', compact('offer'));
     }
 
 }

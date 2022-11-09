@@ -15,6 +15,7 @@ Route::middleware([])
         Route::get('/tagsedit/{tag}', [\App\Http\Controllers\web\TagController::class, 'edit'])->name('edit');
         Route::patch('/tagsupdate/{tag}', [\App\Http\Controllers\web\TagController::class, 'update'])->name('update');
 
+        Route::get('/tagsdelete/{tag}', [\App\Http\Controllers\web\TagController::class, 'delete'])->name('delete');
         Route::delete('/tagsdestroy/{tag}', [\App\Http\Controllers\web\TagController::class, 'destroy'])->name('destroy');
 });
 

@@ -89,6 +89,12 @@ class MaterialController extends Controller
         return view('web.materials.edit')->with('material', $material)->with('submaterials', $submaterials);
     }
 
+    public function delete(Request $request, Material $material)
+    {
+
+        return view('web.materials.delete')->with('material', $material);
+    }
+
     /**
      * Remove the specified resource from storage.
      *

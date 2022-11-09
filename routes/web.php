@@ -54,6 +54,10 @@ if(\Illuminate\Support\Facades\App::environment('local')){
         return view('app');
     });
 
+    Route::get('/verifymail', function (){
+        return view('mail.verify')->with('url','hallo')->with('mailData', 'hello');
+    });
+
     Route::get('/apppost', function (){
         return view('apppost');
     });

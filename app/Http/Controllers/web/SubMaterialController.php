@@ -91,6 +91,11 @@ class SubMaterialController extends Controller
         return view('web.submaterials.edit')->with('submaterial', $submaterial)->with('materials', $materials);
     }
 
+    public function delete(Request $request, SubMaterial $submaterial)
+    {
+
+        return view('web.submaterials.delete')->with('submaterial', $submaterial);
+    }
 
     /**
      * Remove the specified resource from storage.

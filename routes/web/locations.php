@@ -15,6 +15,7 @@ Route::middleware([])
             Route::get('/locationsedit/{location}', [\App\Http\Controllers\web\LocationsController::class, 'edit'])->name('edit');
             Route::patch('/locationsedit/{location}', [\App\Http\Controllers\web\LocationsController::class, 'update'])->name('update');
 
+            Route::get('/locationsdelete/{location}', [\App\Http\Controllers\web\LocationsController::class, 'delete'])->name('delete');
             Route::delete('/locationsdestroy/{location}', [\App\Http\Controllers\web\LocationsController::class, 'destroy'])->name('destroy');
 });
 

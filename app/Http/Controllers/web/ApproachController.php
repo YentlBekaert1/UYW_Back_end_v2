@@ -91,6 +91,12 @@ class ApproachController extends Controller
         return view('web.approaches.edit', compact('approach'));
     }
 
+    public function delete(Request $request, Approach $approach)
+    {
+
+        return view('web.approaches.delete')->with('approach', $approach);
+    }
+
     /**
      * Remove the specified resource from storage.
      *

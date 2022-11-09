@@ -521,7 +521,7 @@ class OffersRepository extends BaseRepository
 
                 if(data_get($attributes, 'images'))
                 {
-                    $old_images = OfferImage::query()->where('offer_id', '=', $offer->id);
+                    $old_images = OfferImage::query()->where('offer_id', '=', $offer->id)->get();
 
                     foreach ($old_images  as $image) {
                         if(File::exists($image->filename) ) {

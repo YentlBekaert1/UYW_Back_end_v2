@@ -92,6 +92,11 @@ class LocationsController extends Controller
         return view('web.locations.edit')->with('location', $location);
     }
 
+    public function delete(Request $request, Locations $location)
+    {
+
+        return view('web.locations.delete')->with('location', $location);
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -101,9 +106,6 @@ class LocationsController extends Controller
     public function destroy(Locations $location, LocationsRepository $repository)
     {
         $deleted = $repository->forceDelete($location);
-
-        return new JsonResponse([
-            'data' => $deleted,
-        ]);
+        return view('web.locations.index')->with('message', 'Location successfully deleted.');
     }
 }

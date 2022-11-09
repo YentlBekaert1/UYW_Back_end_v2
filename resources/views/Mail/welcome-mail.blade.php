@@ -1,4 +1,4 @@
-@component("mail::message")
+@component("vmail::message")
 
 # Welcome {{ $name  }}!!
 

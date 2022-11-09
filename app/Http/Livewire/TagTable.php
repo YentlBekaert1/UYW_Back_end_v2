@@ -192,8 +192,8 @@ final class TagTable extends PowerGridComponent
                ->caption('Delete')
                ->class('bg-red-600 cursor-pointer text-white px-3 m-1 rounded text-sm')
                ->target("")
-               ->route('web.tags.destroy', ['id'])
-               ->method('delete')
+               ->route('web.tags.delete', ['id'])
+               ->method('get')
         ];
     }
 

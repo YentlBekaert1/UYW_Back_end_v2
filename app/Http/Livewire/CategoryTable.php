@@ -214,8 +214,8 @@ final class CategoryTable extends PowerGridComponent
                ->caption('Delete')
                ->class('bg-red-600 cursor-pointer text-white px-3 m-1 rounded text-sm')
                ->target("")
-               ->route('web.categories.destroy', ['id'])
-               ->method('delete')
+               ->route('web.categories.delete', ['id'])
+               ->method('get')
         ];
     }
 

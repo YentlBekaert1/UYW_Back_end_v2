@@ -220,8 +220,8 @@ final class LocationsTable extends PowerGridComponent
                ->caption('Delete')
                ->class('bg-red-600 cursor-pointer text-white px-3 m-1 rounded text-sm')
                ->target("")
-               ->route('web.locations.destroy', ['id'])
-               ->method('delete')
+               ->route('web.locations.delete', ['id'])
+               ->method('get')
         ];
     }
 

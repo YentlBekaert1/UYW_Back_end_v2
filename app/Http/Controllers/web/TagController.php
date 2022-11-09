@@ -83,6 +83,12 @@ class TagController extends Controller
     {
         return view('web.tags.edit', compact('tag'));
     }
+
+    public function delete(Request $request, Tag $tag)
+    {
+
+        return view('web.tags.delete')->with('tag', $tag);
+    }
     /**
      * Remove the specified resource from storage.
      *

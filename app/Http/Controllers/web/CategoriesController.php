@@ -95,6 +95,11 @@ class CategoriesController extends Controller
         return view('web.categories.edit', compact('categorie'));
     }
 
+    public function delete(Request $request, Categories $categorie)
+    {
+
+        return view('web.categories.delete')->with('categorie', $categorie);
+    }
     /**
      * Remove the specified resource from storage.
      *

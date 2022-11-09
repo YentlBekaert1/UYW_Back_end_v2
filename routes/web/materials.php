@@ -15,6 +15,7 @@ Route::middleware([])
             Route::get('/materialsedit/{material}', [\App\Http\Controllers\web\MaterialController::class, 'edit'])->name('edit');
             Route::patch('/materialsedit/{material}', [\App\Http\Controllers\web\MaterialController::class, 'update'])->name('update');
 
+            Route::get('/materialsdelete/{material}', [\App\Http\Controllers\web\MaterialController::class, 'delete'])->name('delete');
             Route::delete('/materialsdestroy/{material}', [\App\Http\Controllers\web\MaterialController::class, 'destroy'])->name('destroy');
 });
 

@@ -192,8 +192,8 @@ final class ApproachTable extends PowerGridComponent
                ->caption('Delete')
                ->class('bg-red-600 cursor-pointer text-white px-3 m-1 rounded text-sm')
                ->target("")
-               ->route('web.approaches.destroy', ['id'])
-               ->method('delete')
+               ->route('web.approaches.delete', ['id'])
+               ->method('get')
         ];
     }
 

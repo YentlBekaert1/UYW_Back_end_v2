@@ -15,6 +15,7 @@ Route::middleware([])
             Route::get('/submaterialsedit/{submaterial}', [\App\Http\Controllers\web\SubMaterialController::class, 'edit'])->name('edit');
             Route::patch('/submaterialsedit/{submaterial}', [\App\Http\Controllers\web\SubMaterialController::class, 'update'])->name('update');
 
+            Route::get('/submaterialsdelete/{submaterial}', [\App\Http\Controllers\web\SubMaterialController::class, 'delete'])->name('delete');
             Route::delete('/submaterialsdestroy/{submaterial}', [\App\Http\Controllers\web\SubMaterialController::class, 'destroy'])->name('destroy');
 });
 

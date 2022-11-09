@@ -171,18 +171,18 @@ final class UserTable extends PowerGridComponent
     public function actions(): array
     {
        return [
-           Button::add('edit')
-               ->caption('Edit')
-               ->class('bg-indigo-500 cursor-pointer text-white px-3 m-1 rounded text-sm')
-               ->target("")
-               ->route('web.users.edit', ['id']),
+        //    Button::add('edit')
+        //        ->caption('Edit')
+        //        ->class('bg-indigo-500 cursor-pointer text-white px-3 m-1 rounded text-sm')
+        //        ->target("")
+        //        ->route('web.users.edit', ['id']),
 
            Button::add('destroy')
                ->caption('Delete')
                ->class('bg-red-600 cursor-pointer text-white px-3 m-1 rounded text-sm')
-               ->route('web.users.destroy', ['id'])
+               ->route('web.users.delete', ['id'])
                ->target("")
-               ->method('delete')
+               ->method('get')
         ];
     }
 
