@@ -25,10 +25,11 @@ Route::get('/reset-password/{token}', function ($token){
     ]);
 })->middleware(['guest:'.config('fortify.guard')])->name('password.reset');
 
+Route::get('/register', function() {
+    return redirect('/login');
+});
 
 Route::middleware(['auth:sanctum,web','verified', 'role:admin'])->group(function () {
-
-
     Route::get('/', function () {
         return view('dashboard');
     });
