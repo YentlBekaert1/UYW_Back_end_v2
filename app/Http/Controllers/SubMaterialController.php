@@ -62,7 +62,7 @@ class SubMaterialController extends Controller
      */
     public function material_submaterials($id)
     {
-        $submaterials = SubMaterial::where('material_id', $id)->get();
+        $submaterials = SubMaterial::where('material_id', $id)->orderBy('name', 'asc')->get();
         return SubMaterialResource::collection($submaterials);
     }
 

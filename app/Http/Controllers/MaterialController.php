@@ -18,9 +18,8 @@ class MaterialController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
-        $pageSize = $request->page_size ?? 20;
-        $materials = Material::query()->with(['submaterial'])->paginate($pageSize);
+    {;
+        $materials = Material::query()->with(['submaterial'])->orderBy('name', 'asc')->get();
         return MaterialResource::collection($materials);
     }
 
