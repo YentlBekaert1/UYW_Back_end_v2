@@ -12,7 +12,7 @@ class CategoryFilter
         //dump($value);
         $i = 0;
         foreach($values as $val){
-            $builder->orWhere('categories_id', $val);
+            $builder->where('categories_id', $val);
         };
         return $builder;
 

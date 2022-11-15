@@ -45,7 +45,7 @@ class OffersController extends Controller
     public function searchitems(Request $request)
     {
 
-        $offers = Offers::query()->filter($request)->with(['images','location','materials','submaterials'])
+        $offers = Offers::query()->with(['images','location','materials','submaterials'])
         ->where('status','=', 1)
         ->where("title","LIKE","%{$request->input('query')}%")
         ->orWhereHas("materials",function($query) use($request){
@@ -61,7 +61,7 @@ class OffersController extends Controller
             $query->where("street","LIKE","%{$request->input('query')}%")
             ->orWhere("city","LIKE","%{$request->input('query')}%")
             ->orWhere("country","LIKE","%{$request->input('query')}%");
-        })->paginate(20);
+        })->filter($request)->paginate(20);
         return OffersResource::collection($offers);
     }
 
