@@ -9,8 +9,11 @@ Route::middleware([
         ->namespace("\App\Http\Controllers")
         ->group(function () {
 
-            Route::get('/offers', [\App\Http\Controllers\OffersController::class, 'index'])
-            ->name('index');
+            Route::get('/offers', [\App\Http\Controllers\OffersController::class, 'searchitems'])
+            ->name('searchitems');
+
+            Route::get('/offersearch', [\App\Http\Controllers\OffersController::class, 'searchitems'])
+            ->name('searchitems');
 
             Route::get('/offers/{offer}', [\App\Http\Controllers\OffersController::class, 'show'])
                 ->name('show')
@@ -26,7 +29,7 @@ Route::middleware([
             Route::post('/offers/add_tag_to_offer/{offer}', [\App\Http\Controllers\OffersController::class, 'add_tag_to_offer'])->name('add_tag_to_offer');
             Route::post('/offers/remove_tag_from_offer/{offer}', [\App\Http\Controllers\OffersController::class, 'remove_tag_from_offer'])->name('remove_tag_from_offer');
 
-            Route::get('/offersearch', [\App\Http\Controllers\OffersController::class, 'searchterms'])
+            Route::get('/offersearchterms', [\App\Http\Controllers\OffersController::class, 'searchterms'])
             ->name('searchterms');
 
 });

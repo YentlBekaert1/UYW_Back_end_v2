@@ -18,7 +18,7 @@ class OffersResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'images'=> OfferImagesResource::collection($this->whenLoaded('images')),
+            'images'=> $this->images->sortBy('position')->values()->all(),
             'location'=> $this->location,
             'tags' => $this->tags,
             'category'=> $this->category,

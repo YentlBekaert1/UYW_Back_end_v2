@@ -17,6 +17,7 @@ class OfferImagesResource extends JsonResource
         return [
             'id'=> $this->id,
             'filename'=> $this->filename,
+            'position'=> $this->position,
             'offer_id' => $this->offer_id
         ];
     }

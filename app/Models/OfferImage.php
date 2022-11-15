@@ -11,6 +11,7 @@ class OfferImage extends Model
 
     protected $fillable = [
         'filename',
+        'position',
         'offer_id'
       ];
 

@@ -14,6 +14,7 @@ use App\Exceptions\GeneralJsonException;
 use App\Http\Resources\OffersLocationResource;
 use App\Models\Approach;
 use App\Models\Categories;
+use App\Models\Locations;
 use App\Models\Material;
 use App\Models\OfferImage;
 use App\Models\SubMaterial;
@@ -34,10 +35,54 @@ class OffersController extends Controller
         $pageSize = $request->page_size ?? 20;
         $offers = Offers::query()->filter($request)->with(['images','location','materials','submaterials']);
         //->where('status','=', 1)
+
         $offers = $offers->where('status','=', 1)->paginate($pageSize);
 
         return OffersResource::collection($offers);
     }
+
+
+    public function searchitems(Request $request)
+    {
+
+        $offers = Offers::query()->filter($request)->with(['images','location','materials','submaterials'])
+        ->where('status','=', 1)
+        ->where("title","LIKE","%{$request->input('query')}%")
+        ->orWhereHas("materials",function($query) use($request){
+            $query->where("name","LIKE","%{$request->input('query')}%");
+        })
+        ->orWhereHas("submaterials",function($query) use($request){
+            $query->where("name","LIKE","%{$request->input('query')}%");
+        })
+        ->orWhereHas("tags",function($query) use($request){
+            $query->where("name","LIKE","%{$request->input('query')}%");
+        })
+        ->orWhereHas("location",function($query) use($request){
+            $query->where("street","LIKE","%{$request->input('query')}%")
+            ->orWhere("city","LIKE","%{$request->input('query')}%")
+            ->orWhere("country","LIKE","%{$request->input('query')}%");
+        })->paginate(20);
+        return OffersResource::collection($offers);
+    }
+
+
+    public function searchterms(Request $request)
+    {
+        $query_offers=  collect(Offers::select('title')->where("title","LIKE","%{$request->input('query')}%")->get());
+        $query_materials =  collect(Material::select('name')->where("name","LIKE","%{$request->input('query')}%")->get());
+        $query_submaterials = collect(SubMaterial::select('name')->where("name","LIKE","%{$request->input('query')}%")->get());
+        $query_tags = collect(Tag::select('name')->where("name","LIKE","%{$request->input('query')}%")->get());
+        $query_locations = collect(Locations::select(['street','city','country'])->where("street","LIKE","%{$request->input('query')}%")
+                                        ->orWhere("city","LIKE","%{$request->input('query')}%")
+                                        ->orWhere("country","LIKE","%{$request->input('query')}%")->get())->unique('');
+
+        $merged_1 = $query_offers->merge($query_materials);
+        $merged_mat_submat = $merged_1->merge($query_submaterials);
+        $merged_mat_submat_tag = $merged_mat_submat->merge($query_tags);
+        $merged_mat_submat_tag_items = $merged_mat_submat_tag->merge($query_locations);
+        return $merged_mat_submat_tag_items;
+    }
+
 
 
     /**
@@ -119,6 +164,7 @@ class OffersController extends Controller
             'postal',
             'city',
             'country',
+            'newimagepositions',
             'newimages',
             'editimages'
         ]));
@@ -230,11 +276,11 @@ class OffersController extends Controller
     }
 
 
-    public function searchterms(Request $request)
-    {
-        $query_offers =  Offers::query()->where('title', "LIKE",  "%{$request->name}%")->get();
+    // public function searchterms(Request $request)
+    // {
+    //     $query_offers =  Offers::query()->where('title', "LIKE",  "%{$request->name}%")->get();
 
-        return  $query_offers;
-    }
+    //     return  $query_offers;
+    // }
 
 }

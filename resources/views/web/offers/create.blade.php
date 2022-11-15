@@ -146,7 +146,6 @@
                                 <div class="col-span-3 sm:col-span-2">
                                     <label for="url" class="block text-sm font-medium text-gray-700"> URL </label>
                                     <div class="mt-1 flex rounded-md shadow-sm">
-                                    <span class="inline-flex items-center px-8 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm"> http:// </span>
                                     <input type="text" name="url" id="url" value="" class="focus:ring-green-500 focus:border-green-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300">
                                     </div>
                                 </div>

@@ -45,9 +45,14 @@
                                 <div class="col-span-3 sm:col-span-2">
                                     <label for="description" class="block text-sm font-medium text-gray-700"> Description </label>
                                     <div class=" flex rounded-md shadow-sm">
-                                    <textarea rows="4" cols="50" type="text" id="description" name="description" value="" autofocus class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300  rounded-md">{{$offer->description}}</textarea>
+                                    <textarea rows="4" cols="50" type="text" id="description" name="description" value="" autofocus class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300  rounded-md">
+                                    @foreach($offer->description as $des )
+                                           {{$des}}
+                                    @endforeach
+                                    </textarea>
                                     </div>
                                 </div>
+
 
                                 <div class="col-span-3 sm:col-span-2">
                                     <label for="category" class="block text-sm font-medium text-gray-700"> Category </label>
@@ -162,7 +167,6 @@
                                 <div class="col-span-3 sm:col-span-2">
                                     <label for="url" class="block text-sm font-medium text-gray-700"> URL </label>
                                     <div class="mt-1 flex rounded-md shadow-sm">
-                                    <span class="inline-flex items-center px-8 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm"> http:// </span>
                                     <input type="text" name="url" id="url" value="{{$offer->url}}" class="focus:ring-green-500 focus:border-green-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300">
                                     </div>
                                 </div>
@@ -208,11 +212,12 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                @if($offer->location)
                                 <div class="col-span-3 sm:col-span-2">
                                     <label for="street" class="block text-sm font-medium text-gray-700"> Street and number </label>
                                     <div class="mt-1 flex rounded-md shadow-sm">
-                                    <input type="text" name="street" id="streetnumber" value="{{$offer->location->street}}" class="focus:ring-green-500 focus:border-green-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" >
+
+                                        <input type="text" name="street" id="streetnumber" value="{{$offer->location->street}}" class="focus:ring-green-500 focus:border-green-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" >
                                     </div>
                                 </div>
                                 <div class="col-span-3 sm:col-span-2">
@@ -238,6 +243,38 @@
 
                                     </div>
                                 </div>
+                               @else
+                               <div class="col-span-3 sm:col-span-2">
+                                    <label for="street" class="block text-sm font-medium text-gray-700"> Street and number </label>
+                                    <div class="mt-1 flex rounded-md shadow-sm">
+
+                                        <input type="text" name="street" id="streetnumber" value="" class="focus:ring-green-500 focus:border-green-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" >
+                                    </div>
+                                </div>
+                                <div class="col-span-3 sm:col-span-2">
+                                    <label for="city" class="block text-sm font-medium text-gray-700"> City </label>
+                                    <div class="mt-1 flex rounded-md shadow-sm">
+                                    <input type="text" name="city" id="city" value="" class="focus:ring-green-500 focus:border-green-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" >
+                                    </div>
+                                </div>
+                                <div class="col-span-3 sm:col-span-2">
+                                    <label for="country" class="block text-sm font-medium text-gray-700"> Country </label>
+                                    <div class="mt-1 flex rounded-md shadow-sm">
+                                    <input type="text" name="country" id="country" value="" class="focus:ring-green-500 focus:border-green-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" >
+                                    </div>
+                                </div>
+                                <div class="col-span-3 sm:col-span-2">
+                                   <button type="button" id="search_location" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Search Location</button>
+                                </div>
+                                <div class="col-span-3 sm:col-span-2">
+                                    <h4>Choosed location:</h4>
+                                    <input type="hidden" name="lat" id="lat">
+                                    <input type="hidden" name="lon" id="lon">
+                                    <div id="choosed_location">
+
+                                    </div>
+                                </div>
+                               @endif()
                             </div>
                             <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
                                 <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Save</button>

@@ -83,14 +83,17 @@ class OffersRepository extends BaseRepository
 
                 if(data_get($attributes, 'images'))
                 {
+                    $position = 1;
                     foreach (data_get($attributes, 'images') as $imagefile) {
 
                         $path = $imagefile->store('/images/resource', ['disk' => 'my_files']);
 
                         $created_image = OfferImage::query()->create([
                             'filename' => $path,
+                            'position' => $position,
                             'offer_id' => $created->id,
                         ]);
+                        $position++;
                         throw_if(!$created_image, GeneralJsonException::class, 'Failed to create item image. ');
                     }
                 }
@@ -163,71 +166,95 @@ class OffersRepository extends BaseRepository
                 }
 
                 if(data_get($attributes, 'lat') && data_get($attributes, 'lat')){
-                    $updated =  Locations::find($offer->location->id)->update([
-                        'lat' => data_get($attributes, 'lat' ,$offer->lat),
-                        'lon' => data_get($attributes, 'lon', $offer->lon),
-                        'street' => data_get($attributes, 'street', $offer->street),
-                        'number' => data_get($attributes, 'number', $offer->number),
-                        'postal' => data_get($attributes, 'postal', $offer->postal),
-                        'city' => data_get($attributes, 'city', $offer->city),
-                        'country' => data_get($attributes, 'country', $offer->country),
-                        'offers_id' => data_get($attributes, 'offers_id', $offer->id),
-                    ]);
-                    throw_if(!$updated, GeneralJsonException::class, 'Failed to update location');
-                }
-
-                if(data_get($attributes, 'newimages'))
-                {
-                    foreach (data_get($attributes, 'newimages') as $imagefile) {
-
-                        $path = $imagefile->store('/images/resource', ['disk' => 'my_files']);
-
-                        $created_image = OfferImage::query()->create([
-                            'filename' => $path,
-                            'offer_id' => $offer->id,
+                    if($offer->location){
+                        $updated =  Locations::find($offer->location->id)->update([
+                            'lat' => data_get($attributes, 'lat' ,$offer->lat),
+                            'lon' => data_get($attributes, 'lon', $offer->lon),
+                            'street' => data_get($attributes, 'street', $offer->street),
+                            'number' => data_get($attributes, 'number', $offer->number),
+                            'postal' => data_get($attributes, 'postal', $offer->postal),
+                            'city' => data_get($attributes, 'city', $offer->city),
+                            'country' => data_get($attributes, 'country', $offer->country),
+                            'offers_id' => data_get($attributes, 'offers_id', $offer->id),
                         ]);
-                        throw_if(!$created_image, GeneralJsonException::class, 'Failed to create item image. ');
+                        throw_if(!$updated, GeneralJsonException::class, 'Failed to update location');
+                    }else{
+                        $created_loction = Locations::query()->create([
+                            'lat' => data_get($attributes, 'lat'),
+                            'lon' => data_get($attributes, 'lon'),
+                            'street' => data_get($attributes, 'street'),
+                            'number' => data_get($attributes, 'number'),
+                            'postal' => data_get($attributes, 'postal'),
+                            'city' => data_get($attributes, 'city'),
+                            'country' => data_get($attributes, 'country'),
+                            'offers_id' => $offer->id,
+                        ]);
+                        throw_if(!$created_loction, GeneralJsonException::class, 'Failed to location. ');
                     }
+
                 }
+
 
                 if(data_get($attributes, 'editimages'))
                 {
                     $editimages = json_decode(data_get($attributes, 'editimages'));
-
-                    if(count( $editimages) > 0){
-                        $offerimages_ids = [];
-                        $editimages_ids = [];
-                        $offerimages = OfferImage::where('offer_id','=',$offer->id)->get();
-                        foreach ($offerimages  as $img) {
-                            array_push($offerimages_ids, $img->id);
+                    $offerimages_ids = [];
+                    $offerimages = OfferImage::where('offer_id','=',$offer->id)->get();
+                    foreach ($offerimages  as $img) {
+                        array_push($offerimages_ids, $img->id);
+                    }
+                    $editimages_ids = [];
+                    foreach ($editimages  as $img) {
+                        if($img->new == false){
+                          array_push($editimages_ids, $img->id);
                         }
-                        foreach ($editimages  as $img) {
-                            array_push($editimages_ids, $img->id);
-                        }
+                    }
+                    foreach($editimages as $img){
+                        if($img->new == false){
+                            $stored_img = OfferImage::find($img->id);
+                            $stored_img->position = $img->position;
+                            $stored_img->save();
 
-                        foreach ( $editimages  as $img) {
                             //zoek of de id in de offer images zit
                             $res = array_search($img->id, $offerimages_ids);
                             //verwijder de id uit de offer images  id array
                             unset($offerimages_ids[$res]);
                             // nu houden we een array over met de id die we mogen verwijderen.
+                            //update position
                         }
-                        //overloop de offerimages id's die we mogen verwijderen en verwijder ze
-                        foreach ( $offerimages_ids  as $id) {
-                            $img = OfferImage::find($id);
-                            if(File::exists($img->filename) ) {
-                                File::delete($img->filename);
-                            }
-                            $image = OfferImage::find($img->id);
-                            $deleted = $image->forceDelete();
+                    }
+                      //overloop de offerimages id's die we mogen verwijderen en verwijder ze
+                      foreach ( $offerimages_ids  as $id) {
+                        $img = OfferImage::find($id);
+                        if(File::exists($img->filename) ) {
+                            File::delete($img->filename);
                         }
+                        $image = OfferImage::find($img->id);
+                        $deleted = $image->forceDelete();
+                    }
+                }
+
+                if(data_get($attributes, 'newimages'))
+                {
+                    $newimagepositions = json_decode(data_get($attributes, 'newimagepositions'));
+                    $count = 0;
+                    foreach (data_get($attributes, 'newimages') as $imagefile) {
+                        $path = $imagefile->store('/images/resource', ['disk' => 'my_files']);
+
+                        $created_image = OfferImage::query()->create([
+                            'filename' => $path,
+                            'position' => $newimagepositions[$count],
+                            'offer_id' => $offer->id,
+                        ]);
+                        $count++;
+                        throw_if(!$created_image, GeneralJsonException::class, 'Failed to create item image. ');
                     }
                 }
 
                 throw_if(!$updated, GeneralJsonException::class, 'Failed to update offer');
                 event(new OffersUpdated($offer));
 
-                return $offer;
+                return data_get($attributes, 'newimagepositions');
                 }
                 else{
                     return response('{"message":"not authenticated"}', 200);
@@ -424,16 +451,19 @@ class OffersRepository extends BaseRepository
 
                 if(data_get($attributes, 'images'))
                 {
+                    $count = 1;
                     foreach (data_get($attributes, 'images') as $imagefile) {
 
                         $path = $imagefile->store('/images/resource', ['disk' => 'my_files']);
-
                         $created_image = OfferImage::query()->create([
                             'filename' => $path,
+                            'position' => $count,
                             'offer_id' => $created->id,
                         ]);
+                        $count++;
                         throw_if(!$created_image, GeneralJsonException::class, 'Failed to create item image. ');
                     }
+
                 }
 
 
@@ -505,18 +535,34 @@ class OffersRepository extends BaseRepository
                     }
                 }
 
+
                 if(data_get($attributes, 'lat') && data_get($attributes, 'lat')){
-                    $updated =  Locations::find($offer->location->id)->update([
-                        'lat' => data_get($attributes, 'lat' ,$offer->lat),
-                        'lon' => data_get($attributes, 'lon', $offer->lon),
-                        'street' => data_get($attributes, 'street', $offer->street),
-                        'number' => data_get($attributes, 'number', $offer->number),
-                        'postal' => data_get($attributes, 'postal', $offer->postal),
-                        'city' => data_get($attributes, 'city', $offer->city),
-                        'country' => data_get($attributes, 'country', $offer->country),
-                        'offers_id' => data_get($attributes, 'offers_id', $offer->id),
-                    ]);
-                    throw_if(!$updated, GeneralJsonException::class, 'Failed to update location');
+                    if($offer->location){
+                        $updated =  Locations::find($offer->location->id)->update([
+                            'lat' => data_get($attributes, 'lat' ,$offer->lat),
+                            'lon' => data_get($attributes, 'lon', $offer->lon),
+                            'street' => data_get($attributes, 'street', $offer->street),
+                            'number' => data_get($attributes, 'number', $offer->number),
+                            'postal' => data_get($attributes, 'postal', $offer->postal),
+                            'city' => data_get($attributes, 'city', $offer->city),
+                            'country' => data_get($attributes, 'country', $offer->country),
+                            'offers_id' => data_get($attributes, 'offers_id', $offer->id),
+                        ]);
+                        throw_if(!$updated, GeneralJsonException::class, 'Failed to update location');
+                    }else{
+                        $created_loction = Locations::query()->create([
+                            'lat' => data_get($attributes, 'lat'),
+                            'lon' => data_get($attributes, 'lon'),
+                            'street' => data_get($attributes, 'street'),
+                            'number' => data_get($attributes, 'number'),
+                            'postal' => data_get($attributes, 'postal'),
+                            'city' => data_get($attributes, 'city'),
+                            'country' => data_get($attributes, 'country'),
+                            'offers_id' => $offer->id,
+                        ]);
+                        throw_if(!$created_loction, GeneralJsonException::class, 'Failed to location. ');
+                    }
+
                 }
 
                 if(data_get($attributes, 'images'))
@@ -529,14 +575,16 @@ class OffersRepository extends BaseRepository
                         }
                         $deleted = $image->forceDelete();
                     }
-
+                    $count = 1;
                     foreach (data_get($attributes, 'images') as $imagefile) {
 
                         $path = $imagefile->store('/images/resource', ['disk' => 'my_files']);
                         $created_image = OfferImage::query()->create([
                             'filename' => $path,
+                            'position' => $count,
                             'offer_id' => $offer->id,
                         ]);
+                        $count++;
                         throw_if(!$created_image, GeneralJsonException::class, 'Failed to create item image. ');
                     }
 
