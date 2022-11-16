@@ -19,7 +19,7 @@ class OffersLocationResource extends JsonResource
             'title' => $this->title,
             'images' => $this->images,
             'category'=> $this->category->id,
-            // 'materials' => $this->materials,
+            'materials' => $this->materials,
             // 'submaterials' => $this->submaterials,
         ];
     }
