@@ -134,6 +134,21 @@ class OffersController extends Controller
         return OffersResource::collection($item->get())->response();
     }
 
+       /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Offers  $offers
+     * @return OffersResource
+     */
+    public function geteditoffer(Offers $offer)
+    {
+
+        $item = Offers::with(['images','location','materials','submaterials','tags'])->where('id', $offer->id);
+
+        return OffersResource::collection($item->get())->response();
+    }
+
+
     /**
      * Update the specified resource in storage.
      *
@@ -167,6 +182,23 @@ class OffersController extends Controller
             'newimagepositions',
             'newimages',
             'editimages'
+        ]));
+
+        return $offer;
+    }
+
+     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\Request  $request
+     * @param  \App\Models\Offers  $offers
+     * @return OffersResource | JsonResponse
+     */
+    public function updateStatus(Request $request, Offers $offer, OffersRepository $repository)
+    {
+
+        $offer = $repository->updatestatus($offer, $request->only([
+            'status',
         ]));
 
         return $offer;

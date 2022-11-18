@@ -36,7 +36,11 @@ Route::middleware([
 
 Route::middleware('auth:sanctum',config('jetstream.auth_session'),'verified')->group(function (){
 
+    Route::get('/geteditoffer/{offer}', [\App\Http\Controllers\OffersController::class, 'geteditoffer'])->name('offers.geteditoffer');
+
     Route::post('/offers', [\App\Http\Controllers\OffersController::class, 'store'])->name('offers.store');
+
+    Route::post('/statusoffer/{offer}', [\App\Http\Controllers\OffersController::class, 'updateStatus'])->name('offers.updateStatus');
 
     Route::patch('/offers/{offer}', [\App\Http\Controllers\OffersController::class, 'update'])->name('offers.update');
 

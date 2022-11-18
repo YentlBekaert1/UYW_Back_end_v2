@@ -261,6 +261,26 @@ class OffersRepository extends BaseRepository
                 }
         });
     }
+      /**
+     * @param Offers $offer
+     * @param array $attributes
+     * @return mixed
+     */
+    public function updatestatus($offer, array $attributes)
+    {
+
+        return DB::transaction(function () use($offer, $attributes) {
+            if (Auth::check()) {
+                $updated = $offer->update([
+                    'status' => data_get($attributes, 'status', $offer->contact),
+                ]);
+                return $updated;
+            }
+            else{
+                return response('{"message":"not authenticated"}', 200);
+            }
+        });
+    }
 
     /**
      * @param Offers $offer

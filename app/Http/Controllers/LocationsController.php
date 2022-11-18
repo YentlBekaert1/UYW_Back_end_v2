@@ -28,7 +28,9 @@ class LocationsController extends Controller
     public function map(Request $request)
     {
        $locations = Locations::query()->whereBetween('lat', [$request->latSE, $request->latNW])
-                        ->whereBetween('lon', [$request->lonSE, $request->lonNW])->with("offer")->get();
+                        ->whereBetween('lon', [$request->lonSE, $request->lonNW])->with("offer")->whereHas("offer",function($query) use($request){
+                            $query->where("status","=",1);
+                        })->get();
 
                         // $locations = Locations::query()->whereBetween('lat', [1, 55])
                         // ->whereBetween('lon', [100, 200])->with("offer")->get();
