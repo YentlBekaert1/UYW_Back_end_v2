@@ -4,22 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Offers;
 use App\Http\Requests\StoreOffersRequest;
-use App\Http\Requests\UpdateOffersRequest;
 use App\Http\Resources\OffersResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use App\Repositories\OffersRepository;
-use App\Exceptions\GeneralJsonException;
-use App\Http\Resources\OffersLocationResource;
-use App\Models\Approach;
-use App\Models\Categories;
 use App\Models\Locations;
 use App\Models\Material;
 use App\Models\OfferImage;
 use App\Models\SubMaterial;
 use App\Models\Tag;
-use App\Models\User;
+
 use Illuminate\Support\Facades\File;
 
 class OffersController extends Controller

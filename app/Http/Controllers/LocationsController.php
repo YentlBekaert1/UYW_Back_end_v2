@@ -29,8 +29,31 @@ class LocationsController extends Controller
     {
        $locations = Locations::query()->whereBetween('lat', [$request->latSE, $request->latNW])
                         ->whereBetween('lon', [$request->lonSE, $request->lonNW])->with("offer")->whereHas("offer",function($query) use($request){
-                            $query->where("status","=",1);
-                        })->get();
+                            $query->where("status","=",1)
+                            ->where("title","LIKE","%{$request->input('query')}%")
+                            ->orWhere(function($query) use($request) {
+                                $query->whereHas("materials",function($query) use($request){
+                                    $query->where("name","LIKE","%{$request->input('query')}%");
+                                });
+                            })
+                            ->orWhere(function($query) use($request) {
+                                $query->whereHas("submaterials",function($query) use($request){
+                                    $query->where("name","LIKE","%{$request->input('query')}%");
+                                });
+                            })
+                            ->orWhere(function($query) use($request) {
+                                $query->whereHas("tags",function($query) use($request){
+                                    $query->where("name","LIKE","%{$request->input('query')}%");
+                                });
+                            })
+                            ->orWhere(function($query) use($request) {
+                                $query->whereHas("location",function($query) use($request){
+                                    $query->where("street","LIKE","%{$request->input('query')}%")
+                                          ->orWhere("city","LIKE","%{$request->input('query')}%")
+                                          ->orWhere("country","LIKE","%{$request->input('query')}%");
+                                });
+                            });
+                        })->filter($request)->get();
 
                         // $locations = Locations::query()->whereBetween('lat', [1, 55])
                         // ->whereBetween('lon', [100, 200])->with("offer")->get();
