@@ -12,7 +12,8 @@ class OfferFilter extends AbstractFilter
     protected $filters = [
         'materials' => MaterialFilter::class,
         'location' => LocationFilter::class,
-        'categories' => CategoryFilter::class
+        'categories' => CategoryFilter::class,
+        'query' => QueryFilter::class,
     ];
 }
 

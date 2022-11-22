@@ -41,32 +41,32 @@ class OffersController extends Controller
     {
 
         $offers = Offers::query()->with(['images','location','materials','submaterials'])
-        ->where('status','=',1)
-        ->where("title","LIKE","%{$request->input('query')}%")
-        ->orWhere(function($query) use($request) {
-            $query->whereHas("materials",function($query) use($request){
-                $query->where("name","LIKE","%{$request->input('query')}%");
-            });
-        })
-        ->orWhere(function($query) use($request) {
-            $query->whereHas("submaterials",function($query) use($request){
-                $query->where("name","LIKE","%{$request->input('query')}%");
-            });
-        })
-        ->orWhere(function($query) use($request) {
-            $query->whereHas("tags",function($query) use($request){
-                $query->where("name","LIKE","%{$request->input('query')}%");
-            });
-        })
-        ->orWhere(function($query) use($request) {
-            $query->whereHas("location",function($query) use($request){
-                $query->where("street","LIKE","%{$request->input('query')}%")
-                      ->orWhere("city","LIKE","%{$request->input('query')}%")
-                      ->orWhere("country","LIKE","%{$request->input('query')}%");
-            });
-        })
 
-        ->filter($request)->paginate(20);
+        // ->where("title","LIKE","%{$request->input('query')}%")
+        // ->orWhere(function($query) use($request) {
+        //     $query->whereHas("materials",function($query) use($request){
+        //         $query->where("name","LIKE","%{$request->input('query')}%");
+        //     });
+        // })
+        // ->orWhere(function($query) use($request) {
+        //     $query->whereHas("submaterials",function($query) use($request){
+        //         $query->where("name","LIKE","%{$request->input('query')}%");
+        //     });
+        // })
+        // ->orWhere(function($query) use($request) {
+        //     $query->whereHas("tags",function($query) use($request){
+        //         $query->where("name","LIKE","%{$request->input('query')}%");
+        //     });
+        // })
+        // ->orWhere(function($query) use($request) {
+        //     $query->whereHas("location",function($query) use($request){
+        //         $query->where("street","LIKE","%{$request->input('query')}%")
+        //               ->orWhere("city","LIKE","%{$request->input('query')}%")
+        //               ->orWhere("country","LIKE","%{$request->input('query')}%");
+        //     });
+        // })
+
+        ->filter($request)->where('status','=',1)->paginate(20);
         return OffersResource::collection($offers);
     }
 
