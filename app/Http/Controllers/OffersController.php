@@ -29,10 +29,12 @@ class OffersController extends Controller
         //abort(404);
         $pageSize = $request->page_size ?? 20;
         $offers = Offers::query()->filter($request)->with(['images','location','materials','submaterials']);
-        //->where('status','=', 1)
-
-        $offers = $offers->where('status','=', 1)->paginate($pageSize);
-
+        $offers = $offers->where('status','=', 1);
+        if($request->input('date')){
+            $date = $request->input('date');
+            $offers = $offers->orderBy('created_at', $date);
+        }
+        $offers = $offers->paginate($pageSize);
         return OffersResource::collection($offers);
     }
 

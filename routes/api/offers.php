@@ -12,8 +12,8 @@ Route::middleware([
             Route::get('/offers', [\App\Http\Controllers\OffersController::class, 'searchitems'])
             ->name('searchitems');
 
-            Route::get('/offersearch', [\App\Http\Controllers\OffersController::class, 'searchitems'])
-            ->name('searchitems');
+            Route::get('/offersall', [\App\Http\Controllers\OffersController::class, 'index'])
+            ->name('index');
 
             Route::get('/offers/{offer}', [\App\Http\Controllers\OffersController::class, 'show'])
                 ->name('show')
