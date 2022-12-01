@@ -152,6 +152,12 @@ class OffersController extends Controller
         $offer = $repository->update($offer, $request->only([
             'title',
             'description',
+            'title_nl',
+            'description_nl',
+            'title_fr',
+            'description_fr',
+            'title_en',
+            'description_en',
             'tags',
             'newtags',
             'materials',

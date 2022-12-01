@@ -129,6 +129,12 @@ class OffersRepository extends BaseRepository
                 $updated = $offer->update([
                     'title' => data_get($attributes, 'title', $offer->title),
                     'description' => data_get($attributes, 'description', $offer->description),
+                     'title_nl' => data_get($attributes, 'title_nl',$offer->title_nl),
+                    'description_nl' => data_get($attributes, 'description_nl',$offer->description_nl),
+                    'title_fr' => data_get($attributes, 'title_fr',$offer->title_fr),
+                    'description_fr' => data_get($attributes, 'description_fr', $offer->description_fr),
+                    'title_en' => data_get($attributes, 'title_en',$offer->title_en),
+                    'description_en' => data_get($attributes, 'description_en', $offer->description_en),
                     'categories_id' => data_get($attributes, 'category', $offer->categories_id),
                     'approaches_id' => data_get($attributes, 'approach', $offer->approaches_id),
                     'url' => data_get($attributes, 'url', $offer->url),

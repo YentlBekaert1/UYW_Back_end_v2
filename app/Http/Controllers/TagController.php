@@ -108,11 +108,12 @@ class TagController extends Controller
     public function autocomplete(Request $request)
     {
 
-          $data = Tag::where("name_en","LIKE","%{$request->input('query')}%")
-                    ->orWhere("name_fr","LIKE","%{$request->input('query')}%")
-                    ->orWhere("name_nl","LIKE","%{$request->input('query')}%")
-                    ->get();
-
+        //   $data = Tag::where("name_en","LIKE","%{$request->input('query')}%")
+        //             ->orWhere("name_fr","LIKE","%{$request->input('query')}%")
+        //             ->orWhere("name_nl","LIKE","%{$request->input('query')}%")
+        //             ->get();
+          $data = Tag::where("name","LIKE","%{$request->input('query')}%")->get();
+          
         return TagResource::collection($data);
     }
 }
