@@ -9,11 +9,11 @@ Route::middleware([
         ->namespace("\App\Http\Controllers")
         ->group(function () {
 
-            Route::get('/submaterials', [\App\Http\Controllers\SubMaterialController::class, 'index'])->name('index');
+            Route::get('/{language}/submaterials', [\App\Http\Controllers\SubMaterialController::class, 'index'])->name('index');
 
             Route::get('/submaterials/{submaterial}', [\App\Http\Controllers\SubMaterialController::class, 'show'])->name('show');
 
-            Route::get('/materialsubmaterials/{id}', [\App\Http\Controllers\SubMaterialController::class, 'material_submaterials'])->name('material_submaterials');
+            Route::get('/{language}/materialsubmaterials/{id}', [\App\Http\Controllers\SubMaterialController::class, 'material_submaterials'])->name('material_submaterials');
 
             Route::post('/submaterials', [\App\Http\Controllers\SubMaterialController::class, 'store'])->name('store');
 

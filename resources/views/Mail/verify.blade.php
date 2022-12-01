@@ -15,7 +15,7 @@
     <div class="inner-body">
         <h2>Bedankt voor het registreren op het Upcycleyourwaste platform</h2>
         <p>Om te kunnen aanmelden moet je eerst je account verificeren via onderstaande link.</p>
-        <a href="{{$url}}">{{$url}}</a>
+        <a href="{{$url}}">klik hier</a>
         </br>
         </br>
         <p>Als je dit verzoek niet hebt ingediend, kun je dit bericht gewoon negeren, er gebeurt niets.</p>

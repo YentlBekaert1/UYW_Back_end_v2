@@ -9,7 +9,7 @@ Route::middleware([
         ->namespace("\App\Http\Controllers")
         ->group(function () {
 
-            Route::get('/materials', [\App\Http\Controllers\MaterialController::class, 'index'])->name('index');
+            Route::get('/{language}/materials', [\App\Http\Controllers\MaterialController::class, 'index'])->name('index');
 
             Route::get('/materials/{material}', [\App\Http\Controllers\MaterialController::class, 'show'])->name('show');
 

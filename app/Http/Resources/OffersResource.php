@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\App;
 
 class OffersResource extends JsonResource
 {
@@ -18,6 +19,12 @@ class OffersResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
+            'title_nl' => $this->title_nl,
+            'description_nl' => $this->description_nl,
+            'title_en' => $this->title_en,
+            'description_en' => $this->description_en,
+            'title_fr' => $this->title_fr,
+            'description_fr' => $this->description_fr,
             'images'=> $this->images->sortBy('position')->values()->all(),
             'location'=> $this->location,
             'tags' => $this->tags,

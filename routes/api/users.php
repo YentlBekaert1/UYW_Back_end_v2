@@ -31,5 +31,7 @@ Route::middleware(['auth:sanctum','verified'])
         Route::get('/useroffers', [\App\Http\Controllers\UserController::class, 'useroffers'])->name('useroffers');
 
         Route::get('/userfavorites', [\App\Http\Controllers\UserController::class, 'userfavorites'])->name('userfavorites');
+
+        Route::get('/userdashboarddata', [\App\Http\Controllers\UserController::class, 'dashboarddata'])->name('dashboarddata');
 });
 

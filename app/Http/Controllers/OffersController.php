@@ -42,33 +42,10 @@ class OffersController extends Controller
     public function searchitems(Request $request)
     {
 
-        $offers = Offers::query()->with(['images','location','materials','submaterials'])
-
-        // ->where("title","LIKE","%{$request->input('query')}%")
-        // ->orWhere(function($query) use($request) {
-        //     $query->whereHas("materials",function($query) use($request){
-        //         $query->where("name","LIKE","%{$request->input('query')}%");
-        //     });
-        // })
-        // ->orWhere(function($query) use($request) {
-        //     $query->whereHas("submaterials",function($query) use($request){
-        //         $query->where("name","LIKE","%{$request->input('query')}%");
-        //     });
-        // })
-        // ->orWhere(function($query) use($request) {
-        //     $query->whereHas("tags",function($query) use($request){
-        //         $query->where("name","LIKE","%{$request->input('query')}%");
-        //     });
-        // })
-        // ->orWhere(function($query) use($request) {
-        //     $query->whereHas("location",function($query) use($request){
-        //         $query->where("street","LIKE","%{$request->input('query')}%")
-        //               ->orWhere("city","LIKE","%{$request->input('query')}%")
-        //               ->orWhere("country","LIKE","%{$request->input('query')}%");
-        //     });
-        // })
-
+        $offers = Offers::query()
+        ->with(['images','location','materials','submaterials'])
         ->filter($request)->where('status','=',1)->paginate(20);
+
         return OffersResource::collection($offers);
     }
 
@@ -103,6 +80,12 @@ class OffersController extends Controller
         $created = $repository->create($request->only([
             'title',
             'description',
+            'title_nl',
+            'description_nl',
+            'title_fr',
+            'description_fr',
+            'title_en',
+            'description_en',
             'tags',
             'newtags',
             'materials',

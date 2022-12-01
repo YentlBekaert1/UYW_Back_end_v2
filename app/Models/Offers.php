@@ -14,6 +14,12 @@ class Offers extends Model
     protected $fillable = [
         'title',
         'description',
+        'title_nl',
+        'description_nl',
+        'title_fr',
+        'description_fr',
+        'title_en',
+        'description_en',
         'user_id',
         'categories_id',
         'approaches_id',

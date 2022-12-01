@@ -105,12 +105,29 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user, UserRepository $repository)
     {
-        $user = $repository->update($user, $request->only([
-            'name',
-            'email',
-        ]));
+        if (Auth::check()) {
+            //The user is logged in...
+            if(Auth::user()->id == $user->id){
+                $user = $repository->update($user, $request->only([
+                    'name',
+                    'email',
+                ]));
+                return new UserResource($user);
+            }
 
-        return new UserResource($user);
+            return new JsonResponse([
+                'message' => "unauthenticated res"
+            ]);
+
+        }
+        else{
+            return new JsonResponse([
+                'message' => "unauthenticated res"
+            ]);
+        }
+
+
+
     }
 
     /**
@@ -125,10 +142,18 @@ class UserController extends Controller
      */
     public function destroy(User $user, UserRepository $repository)
     {
-        $deleted = $repository->forceDelete($user);
-        return new JsonResponse([
-            'data' => $deleted,
-        ]);
+        if (Auth::check()) {
+            // The user is logged in...
+            $user_id = Auth::id();
+            $user = User::find($user_id);
+            $deleted = $repository->forceDelete($user);
+            return new JsonResponse([
+                'data' => $deleted,
+            ]);
+        }
+        else{
+            return response('{"message":"not authenticated"}', 200);
+        }
     }
 
     public function web(Request $request)
@@ -175,20 +200,51 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function useroffers()
+    public function useroffers(Request $request)
     {
+        $pageSize = $request->page_size ?? 10;
         if (Auth::check()) {
             // The user is logged in...
             $user_id = Auth::id();
             $offers = Offers::where("user_id","=", $user_id)->with(['images']);
-
-            return OffersResource::collection($offers->get())->response();
+            if($request->sort == 'created'){
+                $offers->orderBy('created_at', $request->order);
+            }
+            return OffersResource::collection($offers->paginate($pageSize))->response();
             // return $items;
         }
         else{
             return response('{"message":"not authenticated"}', 200);
         }
 
+    }
+
+    public function dashboarddata()
+    {
+        if (Auth::check()) {
+            //user data
+            $user_id = Auth::id();
+            $user = User::find($user_id);
+
+            $offers = Offers::query()  ->with(['images','location','materials','submaterials'])->where("user_id", "=", $user->id)->orderBy('created_at')->get();
+            $totalOffers = count($offers);
+            $totalLikes = 0;
+            $totalViews = 0;
+            foreach ($offers as $key => $value) {
+                $totalLikes += $value->total_likes;
+                $totalViews += $value->total_views;
+
+            }
+            return response()->json([
+                'totalOffers' =>  $totalOffers,
+                'totalLikes' =>  $totalLikes,
+                'totalViews' =>  $totalViews,
+                'useroffers' =>  OffersResource::collection($offers),
+            ]);
+        }
+        else{
+            return response('{"message":"not authenticated"}', 200);
+        }
     }
 
 }

@@ -9,6 +9,7 @@ use App\Http\Resources\SubMaterialResource;
 use App\Repositories\SubMaterialsRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class SubMaterialController extends Controller
 {
@@ -17,11 +18,25 @@ class SubMaterialController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $language)
     {
-        $pageSize = $request->page_size ?? 20;
-        $submaterials = SubMaterial::query()->paginate($pageSize);
-        return SubMaterialResource::collection($submaterials);
+        $submaterials = SubMaterial::query()->get();
+        if($language == "en"){
+            App::setLocale($language);
+            return SubMaterialResource::collection($submaterials);
+        }
+        if($language == "nl"){
+            App::setLocale($language);
+            return SubMaterialResource::collection($submaterials);
+        }
+        if($language == "fr"){
+            App::setLocale($language);
+            return SubMaterialResource::collection($submaterials);
+        }
+        else{
+            return abort(404, "Language is not supported");
+        }
+
     }
 
     /**
@@ -60,10 +75,24 @@ class SubMaterialController extends Controller
      * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function material_submaterials($id)
+    public function material_submaterials($language, $id)
     {
         $submaterials = SubMaterial::where('material_id', $id)->orderBy('name', 'asc')->get();
-        return SubMaterialResource::collection($submaterials);
+        if($language == "en"){
+            App::setLocale($language);
+            return SubMaterialResource::collection($submaterials);
+        }
+        if($language == "nl"){
+            App::setLocale($language);
+            return SubMaterialResource::collection($submaterials);
+        }
+        if($language == "fr"){
+            App::setLocale($language);
+            return SubMaterialResource::collection($submaterials);
+        }
+        else{
+            return abort(404, "Language is not supported");
+        }
     }
 
     /**

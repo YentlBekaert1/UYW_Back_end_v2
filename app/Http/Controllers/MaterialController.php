@@ -9,6 +9,7 @@ use App\Http\Resources\MaterialResource;
 use App\Repositories\MaterialsRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class MaterialController extends Controller
 {
@@ -17,10 +18,26 @@ class MaterialController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {;
+    public function index(Request $request, $language)
+    {
         $materials = Material::query()->with(['submaterial'])->orderBy('name', 'asc')->get();
-        return MaterialResource::collection($materials);
+
+        if($language == "en"){
+            App::setLocale($language);
+            return MaterialResource::collection($materials);
+        }
+        if($language == "nl"){
+            App::setLocale($language);
+            return MaterialResource::collection($materials);
+        }
+        if($language == "fr"){
+            App::setLocale($language);
+            return MaterialResource::collection($materials);
+        }
+        else{
+            return abort(404, "Language is not supported");
+        }
+
     }
 
     /**

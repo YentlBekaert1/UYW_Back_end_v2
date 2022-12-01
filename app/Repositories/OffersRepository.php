@@ -26,6 +26,12 @@ class OffersRepository extends BaseRepository
                 $created = Offers::query()->create([
                     'title' => data_get($attributes, 'title', 'Untitled'),
                     'description' => data_get($attributes, 'description'),
+                    'title_nl' => data_get($attributes, 'title_nl'),
+                    'description_nl' => data_get($attributes, 'description_nl'),
+                    'title_fr' => data_get($attributes, 'title_fr'),
+                    'description_fr' => data_get($attributes, 'description_fr'),
+                    'title_en' => data_get($attributes, 'title_en'),
+                    'description_en' => data_get($attributes, 'description_en'),
                     'categories_id' => data_get($attributes, 'category'),
                     'approaches_id' => data_get($attributes, 'approach'),
                     'url' => data_get($attributes, 'url'),
