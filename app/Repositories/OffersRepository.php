@@ -104,6 +104,14 @@ class OffersRepository extends BaseRepository
                     }
                 }
 
+                if(data_get($attributes, 'linked_offers')){
+                    //create the pivot between tags and offers
+                    //sync gaat de tags verwijderen die niet meer in de array staan
+                    foreach(json_decode(data_get($attributes, 'linked_offers')) as $offer_to_link){
+                        $created->linked_offers()->attach($offer_to_link);
+                    }
+                }
+
 
                 throw_if(!$created, GeneralJsonException::class, 'Failed to offer. ');
                 event(new OffersCreated($created));
@@ -175,6 +183,15 @@ class OffersRepository extends BaseRepository
                     //create the pivot between tags and offers
                     //sync gaat de tags verwijderen die niet meer in de array staan
                     $offer->submaterials()->attach(json_decode(data_get($attributes, 'submaterials')));
+                }
+
+                $offer->linked_offers()->detach();
+                if(data_get($attributes, 'linked_offers')){
+                    //create the pivot between tags and offers
+                    //sync gaat de tags verwijderen die niet meer in de array staan
+                    foreach(json_decode(data_get($attributes, 'linked_offers')) as $offer_to_link){
+                        $offer->linked_offers()->attach($offer_to_link);
+                    }
                 }
 
                 if(data_get($attributes, 'lat') && data_get($attributes, 'lat')){

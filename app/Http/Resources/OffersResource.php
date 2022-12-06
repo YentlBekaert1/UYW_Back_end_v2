@@ -38,6 +38,7 @@ class OffersResource extends JsonResource
             'job'=> $this->job,
             'total_likes' => $this->total_likes,
             'total_views' => $this->total_views,
+            'linked_offers' => $this->linked_offers,
             'user_id'=> $this->user->id,
             'user_name'=> $this->user->name,
             'created_at' => $this->created_at,

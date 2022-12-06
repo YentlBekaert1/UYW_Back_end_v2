@@ -89,4 +89,9 @@ class Offers extends Model
         return (new OfferFilter($request))->filter($builder);
     }
 
+    public function linked_offers()
+    {
+        return $this->belongsToMany(Offers::class, 'offers_relations', 'offers_id', 'linked_offer_id');
+    }
+
 }

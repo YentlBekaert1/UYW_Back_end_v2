@@ -28,7 +28,7 @@ class OffersController extends Controller
     {
         //abort(404);
         $pageSize = $request->page_size ?? 20;
-        $offers = Offers::query()->filter($request)->with(['images','location','materials','submaterials']);
+        $offers = Offers::query()->filter($request)->with(['images','location','materials','submaterials','linked_offers']);
         $offers = $offers->where('status','=', 1);
         if($request->input('date')){
             $date = $request->input('date');
@@ -130,6 +130,7 @@ class OffersController extends Controller
             'city',
             'country',
             'images',
+            'linked_offers',
             'user_id'
         ]));
 
@@ -145,7 +146,7 @@ class OffersController extends Controller
     public function show(Offers $offer)
     {
 
-        $item = Offers::with(['images','location','materials','submaterials','tags'])->where('id', $offer->id)->where('status','=', 1);
+        $item = Offers::with(['images','location','materials','submaterials','tags','linked_offers'])->where('id', $offer->id)->where('status','=', 1);
 
         return OffersResource::collection($item->get())->response();
     }
@@ -159,7 +160,7 @@ class OffersController extends Controller
     public function geteditoffer(Offers $offer)
     {
 
-        $item = Offers::with(['images','location','materials','submaterials','tags'])->where('id', $offer->id);
+        $item = Offers::with(['images','location','materials','submaterials','tags','linked_offers'])->where('id', $offer->id);
 
         return OffersResource::collection($item->get())->response();
     }
@@ -203,7 +204,8 @@ class OffersController extends Controller
             'country',
             'newimagepositions',
             'newimages',
-            'editimages'
+            'editimages',
+            'linked_offers'
         ]));
 
         return $offer;
