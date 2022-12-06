@@ -26,11 +26,11 @@ class MaterialController extends Controller
             App::setLocale($language);
             return MaterialResource::collection($materials);
         }
-        if($language == "nl"){
+        else if($language == "nl"){
             App::setLocale($language);
             return MaterialResource::collection($materials);
         }
-        if($language == "fr"){
+        else if($language == "fr"){
             App::setLocale($language);
             return MaterialResource::collection($materials);
         }

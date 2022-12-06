@@ -14,7 +14,7 @@ use App\Models\Material;
 use App\Models\OfferImage;
 use App\Models\SubMaterial;
 use App\Models\Tag;
-
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
 
 class OffersController extends Controller
@@ -50,15 +50,41 @@ class OffersController extends Controller
     }
 
 
-    public function searchterms(Request $request)
+    public function searchterms(Request $request,  $language)
     {
-        $query_offers=  collect(Offers::select('title')->where("title","LIKE","%{$request->input('query')}%")->get());
-        $query_materials =  collect(Material::select('name')->where("name","LIKE","%{$request->input('query')}%")->get());
-        $query_submaterials = collect(SubMaterial::select('name')->where("name","LIKE","%{$request->input('query')}%")->get());
-        $query_tags = collect(Tag::select('name')->where("name","LIKE","%{$request->input('query')}%")->get());
-        $query_locations = collect(Locations::select(['street','city','country'])->where("street","LIKE","%{$request->input('query')}%")
-                                        ->orWhere("city","LIKE","%{$request->input('query')}%")
-                                        ->orWhere("country","LIKE","%{$request->input('query')}%")->get())->unique('');
+        if($language == "en"){
+            App::setLocale($language);
+            $query_offers=  collect(Offers::select('title')->where("title","LIKE","%{$request->input('query')}%")->get());
+            $query_materials =  collect(Material::select('name_en')->where("name_en","LIKE","%{$request->input('query')}%")->get());
+            $query_submaterials = collect(SubMaterial::select('name_en')->where("name_en","LIKE","%{$request->input('query')}%")->get());
+            $query_tags = collect(Tag::select('name')->where("name","LIKE","%{$request->input('query')}%")->get());
+            $query_locations = collect(Locations::select(['street','city','country'])->where("street","LIKE","%{$request->input('query')}%")
+                                            ->orWhere("city","LIKE","%{$request->input('query')}%")
+                                            ->orWhere("country","LIKE","%{$request->input('query')}%")->get())->unique('');
+        }
+        else if($language == "nl"){
+            App::setLocale($language);
+            $query_offers=  collect(Offers::select('title')->where("title","LIKE","%{$request->input('query')}%")->get());
+            $query_materials =  collect(Material::select('name_nl')->where("name_nl","LIKE","%{$request->input('query')}%")->get());
+            $query_submaterials = collect(SubMaterial::select('name_nl')->where("name_nl","LIKE","%{$request->input('query')}%")->get());
+            $query_tags = collect(Tag::select('name')->where("name","LIKE","%{$request->input('query')}%")->get());
+            $query_locations = collect(Locations::select(['street','city','country'])->where("street","LIKE","%{$request->input('query')}%")
+                                            ->orWhere("city","LIKE","%{$request->input('query')}%")
+                                            ->orWhere("country","LIKE","%{$request->input('query')}%")->get())->unique('');
+        }
+        else if($language == "fr"){
+            App::setLocale($language);
+            $query_offers=  collect(Offers::select('title')->where("title","LIKE","%{$request->input('query')}%")->get());
+            $query_materials =  collect(Material::select('name_fr')->where("name_fr","LIKE","%{$request->input('query')}%")->get());
+            $query_submaterials = collect(SubMaterial::select('name_fr')->where("name_fr","LIKE","%{$request->input('query')}%")->get());
+            $query_tags = collect(Tag::select('name')->where("name","LIKE","%{$request->input('query')}%")->get());
+            $query_locations = collect(Locations::select(['street','city','country'])->where("street","LIKE","%{$request->input('query')}%")
+                                            ->orWhere("city","LIKE","%{$request->input('query')}%")
+                                            ->orWhere("country","LIKE","%{$request->input('query')}%")->get())->unique('');
+        }
+        else{
+            return abort(404, "Language is not supported");
+        }
 
         $merged_1 = $query_offers->merge($query_materials);
         $merged_mat_submat = $merged_1->merge($query_submaterials);

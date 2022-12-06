@@ -11,7 +11,9 @@ class LocationsFilter extends AbstractFilter
 {
     protected $filters = [
         'categories' => LocationsCategoryFilter::class,
-        'materials' => LocationsMaterialFilter::class
+        'materials' => LocationsMaterialFilter::class,
+        'location'=> LocationsLocationFilter::class,
+        'query' => LocationsQueryFilter::class
     ];
 }
 

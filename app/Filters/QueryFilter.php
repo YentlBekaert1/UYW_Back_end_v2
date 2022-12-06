@@ -8,7 +8,6 @@ class QueryFilter
 {
     public function filter($builder, $value)
     {
-
         return $builder->where("title","LIKE","%{$value}%")
         ->orWhere(function($query) use($value) {
             $query->whereHas("materials",function($query) use($value){
@@ -33,5 +32,5 @@ class QueryFilter
             });
         });
     }
-
 }
+

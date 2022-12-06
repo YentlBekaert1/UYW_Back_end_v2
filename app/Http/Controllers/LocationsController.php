@@ -25,7 +25,7 @@ class LocationsController extends Controller
         return LocationsResource::collection($locations);
     }
 
-    public function map(Request $request)
+    public function mapbounds(Request $request)
     {
        $locations = Locations::query()->whereBetween('lat', [$request->latSE, $request->latNW])
                         ->whereBetween('lon', [$request->lonSE, $request->lonNW])->with("offer")->whereHas("offer",function($query) use($request){
@@ -61,6 +61,18 @@ class LocationsController extends Controller
 
         return LocationsResource::collection($locations);
     }
+
+    public function map(Request $request)
+    {
+       $locations = Locations::query()->with("offer")->filter($request);
+
+       $locations = $locations->whereHas("offer",function($query) use($request){
+                            $query->where("status","=",1);
+                        })->get();
+
+        return LocationsResource::collection($locations);
+    }
+
 
 
     /**

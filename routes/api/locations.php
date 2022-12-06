@@ -13,6 +13,8 @@ Route::middleware([
 
             Route::get('/locationsmap', [\App\Http\Controllers\LocationsController::class, 'map'])->name('map');
 
+            Route::get('/locationsmapbounds', [\App\Http\Controllers\LocationsController::class, 'mapbounds'])->name('mapbounds');
+
             Route::get('/locations/{location}', [\App\Http\Controllers\LocationsController::class, 'show'])->name('show');
 
             Route::post('/locations', [\App\Http\Controllers\LocationsController::class, 'store'])->name('store');
