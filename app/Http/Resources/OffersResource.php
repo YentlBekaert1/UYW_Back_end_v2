@@ -15,6 +15,8 @@ class OffersResource extends JsonResource
      */
     public function toArray($request)
     {
+        $linked_offers_array = $this->linked_offers()->with('images','location','materials','submaterials')->get();
+
         return [
             'id' => $this->id,
             'title' => $this->title,
@@ -38,7 +40,7 @@ class OffersResource extends JsonResource
             'job'=> $this->job,
             'total_likes' => $this->total_likes,
             'total_views' => $this->total_views,
-            'linked_offers' => $this->linked_offers,
+            'linked_offers' => $linked_offers_array,
             'user_id'=> $this->user->id,
             'user_name'=> $this->user->name,
             'created_at' => $this->created_at,

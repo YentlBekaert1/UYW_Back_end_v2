@@ -219,6 +219,30 @@ class UserController extends Controller
 
     }
 
+
+      /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function useroffersall(Request $request)
+    {
+        if (Auth::check()) {
+            // The user is logged in...
+            $user_id = Auth::id();
+            $offers = Offers::where("user_id","=", $user_id)->with(['images']);
+            if($request->sort == 'created'){
+                $offers->orderBy('created_at', $request->order);
+            }
+            return OffersResource::collection($offers->get())->response();
+            // return $items;
+        }
+        else{
+            return response('{"message":"not authenticated"}', 200);
+        }
+
+    }
+
     public function dashboarddata()
     {
         if (Auth::check()) {
