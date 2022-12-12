@@ -26,3 +26,4 @@ require __DIR__ . '/api/approaches.php';
 require __DIR__ . '/api/offerimages.php';
 require __DIR__ . '/api/locations.php';
 require __DIR__ . '/api/contactus.php';
+require __DIR__ . '/api/faq.php';
