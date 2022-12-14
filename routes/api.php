@@ -1,9 +1,5 @@
 <?php
 
-use App\Http\Controllers\OffersController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,6 +12,11 @@ use Illuminate\Support\Facades\Route;
 */
 //Route::apiResource('/offers', OffersController::class);
 
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
+
 require __DIR__ . '/api/offers.php';
 require __DIR__ . '/api/users.php';
 require __DIR__ . '/api/categories.php';
@@ -27,3 +28,20 @@ require __DIR__ . '/api/offerimages.php';
 require __DIR__ . '/api/locations.php';
 require __DIR__ . '/api/contactus.php';
 require __DIR__ . '/api/faq.php';
+
+Route::post('/sanctum/token', function (Request $request) {
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+        'device_name' => 'required',
+    ]);
+
+    $user = User::where('email', $request->email)->first();
+
+    if (! $user || ! Hash::check($request->password, $user->password)) {
+       return "error";
+    }
+
+    return $user->createToken($request->device_name)->plainTextToken;
+});
+
