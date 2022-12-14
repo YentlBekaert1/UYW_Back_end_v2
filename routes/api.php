@@ -12,8 +12,10 @@
 */
 //Route::apiResource('/offers', OffersController::class);
 
+use App\Exceptions\GeneralJsonException;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
@@ -38,10 +40,26 @@ Route::post('/sanctum/token', function (Request $request) {
 
     $user = User::where('email', $request->email)->first();
 
-    if (! $user || ! Hash::check($request->password, $user->password)) {
-       return "error";
+    throw_if(! $user || ! Hash::check($request->password, $user->password), GeneralJsonException::class, 'Failed ');
+
+    $token = $user->createToken($request->device_name)->plainTextToken;
+    return response()->json([
+        'token' => $token
+    ]);
+});
+
+Route::post('/token/logout', function (Request $request) {
+    if (Auth::check()) {
+            // The user is logged in...
+        $user = User::where('id', Auth::id())->get();
+        $user->tokens()->where('name', $request->device_name)->delete();
+
+        return response('{"message":"logouy succesfull"}', 200);
+    }
+    else{
+        return response('{"message":"not authenticated"}', 200);
     }
 
-    return $user->createToken($request->device_name)->plainTextToken;
 });
+
 
