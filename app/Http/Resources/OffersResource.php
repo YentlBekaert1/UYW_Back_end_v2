@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Offers;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\App;
 
@@ -17,6 +18,18 @@ class OffersResource extends JsonResource
     {
         $linked_offers_array = $this->linked_offers()->with('images','location','materials','submaterials')->get();
 
+        $items_with_same_tag = [];
+        foreach( $this->tags as $tag){
+
+            $tags_offers = Offers::whereHas("tags",function($query) use($tag){
+                    $query->where("id","=", $tag->id);
+            })->where("id", "!=", $this->id)->with('images','location','materials','submaterials')->get();
+
+            if($tags_offers){
+                array_push($items_with_same_tag, $tags_offers);
+            }
+        }
+
         return [
             'id' => $this->id,
             'title' => $this->title,
@@ -30,6 +43,7 @@ class OffersResource extends JsonResource
             'images'=> $this->images->sortBy('position')->values()->all(),
             'location'=> $this->location,
             'tags' => $this->tags,
+            'categories_id'=> $this->category->id,
             'category'=> $this->category,
             'approach'=> $this->approache,
             'materials' => $this->materials,
@@ -40,7 +54,8 @@ class OffersResource extends JsonResource
             'job'=> $this->job,
             'total_likes' => $this->total_likes,
             'total_views' => $this->total_views,
-            'linked_offers' => $linked_offers_array,
+            'linked_offers' => OffersResource::collection($linked_offers_array),
+            'offers_with_same_tag' => $items_with_same_tag,
             'user_id'=> $this->user->id,
             'user_name'=> $this->user->name,
             'created_at' => $this->created_at,
