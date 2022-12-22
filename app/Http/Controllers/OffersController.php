@@ -42,17 +42,17 @@ class OffersController extends Controller
     public function searchitems(Request $request)
     {
         //eventueel voor de random volgorde
-        // if ($request->session()->has('session_rand')) {
-        //     if((time() - $request->session()->get('session_rand')) > 3600){
-        //         $request->session()->put('session_rand', time());
-        //     }
-        // }else{
-        //     $request->session()->put('session_rand', time());
-        // }
+        if ($request->session()->has('session_rand')) {
+            if((time() - $request->session()->get('session_rand')) > 3600){
+                $request->session()->put('session_rand', time());
+            }
+        }else{
+            $request->session()->put('session_rand', time());
+        }
 
         $offers = Offers::query()
         ->with(['images','location','materials','submaterials'])
-        ->filter($request)->where('status','=',1)->inRandomOrder('1234')->paginate(20);
+        ->filter($request)->where('status','=',1)->inRandomOrder($request->session()->get('session_rand'))->paginate(20);
 
 
         return OffersResource::collection($offers);

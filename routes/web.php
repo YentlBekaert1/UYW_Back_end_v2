@@ -47,6 +47,10 @@ Route::middleware(['auth:sanctum,web','verified', 'role:admin'])->group(function
     require __DIR__ . '/web/locations.php';
 });
 
+Route::get('/sitesettings/changestyle', function (){
+    return view('change_styles/changestyle');
+})->name('sitesettings.changestyle');
+
 
 
 //test routes
