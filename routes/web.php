@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,13 +31,10 @@ Route::get('/register', function() {
 });
 
 Route::middleware(['auth:sanctum,web','verified', 'role:admin'])->group(function () {
-    Route::get('/', function () {
-        return view('dashboard');
-    });
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
 
+    Route::get('/', [\App\Http\Controllers\web\Dashboard::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [\App\Http\Controllers\web\Dashboard::class, 'index'])->name('dashboard');
+    
     require __DIR__ . '/web/offers.php';
     require __DIR__ . '/web/users.php';
     require __DIR__ . '/web/categories.php';
@@ -45,11 +43,8 @@ Route::middleware(['auth:sanctum,web','verified', 'role:admin'])->group(function
     require __DIR__ . '/web/approaches.php';
     require __DIR__ . '/web/submaterials.php';
     require __DIR__ . '/web/locations.php';
+    require __DIR__ . '/web/style.php';
 });
-
-Route::get('/sitesettings/changestyle', function (){
-    return view('change_styles/changestyle');
-})->name('sitesettings.changestyle');
 
 
 

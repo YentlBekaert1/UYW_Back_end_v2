@@ -40,7 +40,8 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         ResetPassword::toMailUsing(function($user, string $token) {
-            $frontendUrl = 'http://127.0.0.1:4200';
+            //$frontendUrl = 'http://127.0.0.1:4200';
+            $frontendUrl = 'https://upcycleyourwaste.be';
             return (new MailMessage)
                 ->subject('Reset Password')
                 ->view('mail.password_reset', [
@@ -50,8 +51,8 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         VerifyEmail::createUrlUsing(function ($notifiable) {
-            $frontendUrl = 'http://127.0.0.1:4200/email/verify/';
-
+            //$frontendUrl = 'http://127.0.0.1:4200/email/verify/';
+            $frontendUrl = 'https://upcycleyourwaste.be/email/verify/';
             $verifyUrl = URL::temporarySignedRoute(
                 'verification.verify',
                 Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),

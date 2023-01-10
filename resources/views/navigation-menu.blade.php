@@ -16,48 +16,55 @@
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('web.offers.index') }}" :active="request()->routeIs('web.offers.index')">
-                        {{ __('Items') }}
-                    </x-jet-nav-link>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex sm:items-center">
+                    <div class="ml-3 relative">
+                        <x-jet-dropdown align="right" width="48">
+                            <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
+                                        Tables
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
+                            </x-slot>
+
+                            <x-slot name="content">
+                                <!-- Account Management -->
+                                <div class="block px-4 py-2 text-xs text-gray-400">
+                                    {{ __('Tables') }}
+                                </div>
+                                <x-jet-dropdown-link href="{{ route('web.offers.index') }}">
+                                    {{ __('Items') }}
+                                </x-jet-dropdown-link>
+                                <x-jet-dropdown-link href="{{ route('web.locations.index') }}">
+                                    {{ __('Locations') }}
+                                </x-jet-dropdown-link>
+                                <x-jet-dropdown-link href="{{ route('web.categories.index') }}">
+                                    {{ __('Categories') }}
+                                </x-jet-dropdown-link>
+                                <x-jet-dropdown-link href="{{ route('web.materials.index') }}">
+                                    {{ __('Materials') }}
+                                </x-jet-dropdown-link>
+                                <x-jet-dropdown-link href="{{ route('web.submaterials.index') }}">
+                                    {{ __('Submaterials') }}
+                                </x-jet-dropdown-link>
+                                <x-jet-dropdown-link href="{{ route('web.approaches.index') }}">
+                                    {{ __('Approaches') }}
+                                </x-jet-dropdown-link>
+                                <x-jet-dropdown-link href="{{ route('web.tags.index') }}">
+                                    {{ __('Tags') }}
+                                </x-jet-dropdown-link>
+                                <x-jet-dropdown-link href="{{ route('web.users.index') }}">
+                                    {{ __('Users') }}
+                                </x-jet-dropdown-link>
+                            </x-slot>
+                        </x-jet-dropdown>
+                    </div>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('web.locations.index') }}" :active="request()->routeIs('web.locations.index')">
-                        {{ __('Locations') }}
-                    </x-jet-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('web.categories.index') }}" :active="request()->routeIs('web.categories.index')">
-                        {{ __('Categories') }}
-                    </x-jet-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('web.materials.index') }}" :active="request()->routeIs('web.materials.index')">
-                        {{ __('Materials') }}
-                    </x-jet-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('web.submaterials.index') }}" :active="request()->routeIs('web.submaterials.index')">
-                        {{ __('Submaterials') }}
-                    </x-jet-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('web.approaches.index') }}" :active="request()->routeIs('web.approaches.index')">
-                        {{ __('Approaches') }}
-                    </x-jet-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('web.tags.index') }}" :active="request()->routeIs('web.tags.index')">
-                        {{ __('Tags') }}
-                    </x-jet-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('web.users.index') }}" :active="request()->routeIs('web.users.index')">
-                        {{ __('Users') }}
-                    </x-jet-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('sitesettings.changestyle') }}" :active="request()->routeIs('sitesettings.changestyle')">
+                    <x-jet-nav-link href="{{ route('web.style.index') }}" :active="request()->routeIs('web.style.index')">
                         {{ __('Site instelingen') }}
                     </x-jet-nav-link>
                 </div>
@@ -223,6 +230,11 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-jet-responsive-nav-link href="{{ route('web.users.index') }}" :active="request()->routeIs('web.users.index')">
                 {{ __('Users') }}
+            </x-jet-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-jet-responsive-nav-link href="{{ route('web.style.index') }}" :active="request()->routeIs('web.style.index')">
+                {{ __('Site settings') }}
             </x-jet-responsive-nav-link>
         </div>
 
