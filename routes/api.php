@@ -31,6 +31,7 @@ require __DIR__ . '/api/locations.php';
 require __DIR__ . '/api/contactus.php';
 require __DIR__ . '/api/faq.php';
 
+//voor in te loggen met de api en gebruik te maken van een api token in de plaats van een csrf token.
 Route::post('/sanctum/token', function (Request $request) {
     $request->validate([
         'email' => 'required|email',
@@ -48,6 +49,7 @@ Route::post('/sanctum/token', function (Request $request) {
     ]);
 });
 
+//om ui te loggen met de api en de api token te verwijderen.
 Route::post('/token/logout', function (Request $request) {
     if (Auth::check()) {
             // The user is logged in...
