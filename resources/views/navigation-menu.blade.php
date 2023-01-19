@@ -59,6 +59,12 @@
                                 <x-jet-dropdown-link href="{{ route('web.users.index') }}">
                                     {{ __('Users') }}
                                 </x-jet-dropdown-link>
+                                <x-jet-dropdown-link href="{{ route('web.faq.index') }}">
+                                    {{ __('FAQ') }}
+                                </x-jet-dropdown-link>
+                                <x-jet-dropdown-link href="{{ route('web.contact_us.index') }}">
+                                    {{ __('Questions') }}
+                                </x-jet-dropdown-link>
                             </x-slot>
                         </x-jet-dropdown>
                     </div>
@@ -230,6 +236,16 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-jet-responsive-nav-link href="{{ route('web.users.index') }}" :active="request()->routeIs('web.users.index')">
                 {{ __('Users') }}
+            </x-jet-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-jet-responsive-nav-link href="{{ route('web.faq.index') }}" :active="request()->routeIs('web.faq.index')">
+                {{ __('FAQ') }}
+            </x-jet-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-jet-responsive-nav-link href="{{ route('web.contact_us.index') }}" :active="request()->routeIs('web.contact_us.index')">
+                {{ __('Questions') }}
             </x-jet-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">

@@ -9,7 +9,7 @@
 
     <div class="py-12">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg sm:px-6 lg:px-8 py-5">
-
+            <livewire:locations-table/>
         </div>
     </div>
 </x-app-layout>

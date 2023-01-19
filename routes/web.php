@@ -34,7 +34,7 @@ Route::middleware(['auth:sanctum,web','verified', 'role:admin'])->group(function
 
     Route::get('/', [\App\Http\Controllers\web\Dashboard::class, 'index'])->name('dashboard');
     Route::get('/dashboard', [\App\Http\Controllers\web\Dashboard::class, 'index'])->name('dashboard');
-    
+
     require __DIR__ . '/web/offers.php';
     require __DIR__ . '/web/users.php';
     require __DIR__ . '/web/categories.php';
@@ -44,6 +44,8 @@ Route::middleware(['auth:sanctum,web','verified', 'role:admin'])->group(function
     require __DIR__ . '/web/submaterials.php';
     require __DIR__ . '/web/locations.php';
     require __DIR__ . '/web/style.php';
+    require __DIR__ . '/web/faq.php';
+    require __DIR__ . '/web/contact_us.php';
 });
 
 

@@ -17,6 +17,7 @@ class ContactUs extends Migration
             $table->id();
             $table->string('email');
             $table->json('question')->nullable();
+            $table->json('response')->nullable();
             $table->timestamps();
         });
     }

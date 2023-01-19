@@ -103,12 +103,14 @@
                         :theme="$theme"
                         :row="$row"
                         :columns="$columns"/>
-
+                        
                     <x-livewire-powergrid::actions
                         :primary-key="$primaryKey"
                         :theme="$theme"
                         :row="$row"
                         :actions="$actions"/>
+
+
                 </tr>
             @endforeach
             @if($footerTotalColumn)

@@ -11,11 +11,12 @@ class ContactUs extends Model
 
     protected $fillable = [
         'email',
-        'question'
+        'question',
+        'response'
     ];
 
     protected $casts = [
-        'question' => 'array'
+
     ];
 
 }

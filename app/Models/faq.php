@@ -19,6 +19,4 @@ class faq extends Model
         'description_en',
     ];
 
-
-
 }

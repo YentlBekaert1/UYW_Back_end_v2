@@ -31,12 +31,11 @@ class ContactusRepository extends BaseRepository
      * @param array $attributes
      * @return mixed
      */
-    public function update($contact, array $attributes)
+    public function update($contact_us, array $attributes)
     {
-        return DB::transaction(function () use($contact, $attributes) {
-            $updated = $contact->update([
-                'email' => data_get($attributes, 'email', $contact->email),
-                'question' => data_get($attributes, 'question', $contact->question),
+        return DB::transaction(function () use($contact_us, $attributes) {
+            $updated = $contact_us->update([
+                'response' => data_get($attributes, 'response', $contact_us->response),
             ]);
 
             throw_if(!$updated, GeneralJsonException::class, 'Failed to update contact');
@@ -48,12 +47,12 @@ class ContactusRepository extends BaseRepository
      * @param Categories $categorie
      * @return mixed
      */
-    public function forceDelete($contact)
+    public function forceDelete($contact_us)
     {
-        return DB::transaction(function () use($contact) {
-            $deleted = $contact->forceDelete();
+        return DB::transaction(function () use($contact_us) {
+            $deleted = $contact_us->forceDelete();
 
-            throw_if(!$deleted, GeneralJsonException::class, "cannot delete contact.");
+            throw_if(!$deleted, GeneralJsonException::class, "cannot delete question.");
             return $deleted;
         });
     }
