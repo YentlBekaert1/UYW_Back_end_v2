@@ -56,7 +56,7 @@ class LocationsController extends Controller
             'country',
         ]));
 
-        return view('web.locations.create');
+        return redirect()->route('web.locations.index')->with('message', 'Locatie succesvol aangemaakt.');
     }
 
     public function create()
@@ -84,7 +84,7 @@ class LocationsController extends Controller
             'country',
         ]));
 
-        return view('web.locations.edit')->with('location', $location);
+        return redirect()->route('web.locations.index')->with('message', 'Locatie succesvol gewijzigd.');
     }
 
     public function edit(Request $request, Locations $location)
@@ -106,6 +106,6 @@ class LocationsController extends Controller
     public function destroy(Locations $location, LocationsRepository $repository)
     {
         $deleted = $repository->forceDelete($location);
-        return view('web.locations.index')->with('message', 'Location successfully deleted.');
+        return redirect()->route('web.locations.index')->with('message', 'Locatie succesvol verwijderd.');
     }
 }

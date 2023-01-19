@@ -61,7 +61,7 @@ class StyleController extends Controller
         array_push($array, $res);
 
 
-        return view('web/change_styles/changestyle', ['test' => $array[0]])->with('message', 'update successfully');
+        return redirect()->route('web.style.index')->with('message', 'Style succesvol gewijzigd.');
     }
 
     /**
@@ -92,7 +92,7 @@ class StyleController extends Controller
         array_push($data_array, $url_content);
 
 
-        return view('web/change_styles/changestyle', ['test' => $data_array[0]])->with('message', 'reset successfully');
+        return redirect()->route('web.style.index')->with('message', 'Style succesvol gereset.');
     }
 
 }

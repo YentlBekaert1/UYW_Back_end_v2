@@ -22,7 +22,7 @@
                             <x-slot name="trigger">
                                 <span class="inline-flex rounded-md">
                                     <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
-                                        Tables
+                                        Tabellen
                                         <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                                         </svg>
@@ -33,37 +33,37 @@
                             <x-slot name="content">
                                 <!-- Account Management -->
                                 <div class="block px-4 py-2 text-xs text-gray-400">
-                                    {{ __('Tables') }}
+                                    {{ __('Tabellen') }}
                                 </div>
                                 <x-jet-dropdown-link href="{{ route('web.offers.index') }}">
                                     {{ __('Items') }}
                                 </x-jet-dropdown-link>
                                 <x-jet-dropdown-link href="{{ route('web.locations.index') }}">
-                                    {{ __('Locations') }}
+                                    {{ __('Locaties') }}
                                 </x-jet-dropdown-link>
                                 <x-jet-dropdown-link href="{{ route('web.categories.index') }}">
-                                    {{ __('Categories') }}
+                                    {{ __('Categorieën') }}
                                 </x-jet-dropdown-link>
                                 <x-jet-dropdown-link href="{{ route('web.materials.index') }}">
-                                    {{ __('Materials') }}
+                                    {{ __('Materialen') }}
                                 </x-jet-dropdown-link>
                                 <x-jet-dropdown-link href="{{ route('web.submaterials.index') }}">
-                                    {{ __('Submaterials') }}
+                                    {{ __('Submaterialen') }}
                                 </x-jet-dropdown-link>
                                 <x-jet-dropdown-link href="{{ route('web.approaches.index') }}">
-                                    {{ __('Approaches') }}
+                                    {{ __('Insteek') }}
                                 </x-jet-dropdown-link>
                                 <x-jet-dropdown-link href="{{ route('web.tags.index') }}">
                                     {{ __('Tags') }}
                                 </x-jet-dropdown-link>
                                 <x-jet-dropdown-link href="{{ route('web.users.index') }}">
-                                    {{ __('Users') }}
+                                    {{ __('Gebruikers') }}
                                 </x-jet-dropdown-link>
                                 <x-jet-dropdown-link href="{{ route('web.faq.index') }}">
                                     {{ __('FAQ') }}
                                 </x-jet-dropdown-link>
                                 <x-jet-dropdown-link href="{{ route('web.contact_us.index') }}">
-                                    {{ __('Questions') }}
+                                    {{ __('Gebruikers vragen') }}
                                 </x-jet-dropdown-link>
                             </x-slot>
                         </x-jet-dropdown>

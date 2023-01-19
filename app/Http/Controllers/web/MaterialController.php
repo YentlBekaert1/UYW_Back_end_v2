@@ -52,7 +52,7 @@ class MaterialController extends Controller
             'name_fr'
         ]));
 
-        return new MaterialResource($created);
+        return redirect()->route('web.materials.index')->with('message', 'Materiaal succesvol aangemaakt.');
     }
 
     public function create()
@@ -80,7 +80,7 @@ class MaterialController extends Controller
 
         $submaterials = SubMaterial::Select()->where('material_id',"=", $material->id)->get();
 
-        return view('web.materials.edit')->with('material', $material)->with('submaterials', $submaterials);
+        return redirect()->route('web.materials.index')->with('message', 'Materiaal succesvol gewijzigd.');
     }
 
     public function edit(Request $request, Material $material)
@@ -105,6 +105,6 @@ class MaterialController extends Controller
     {
         $deleted = $repository->forceDelete($material);
 
-        return view('web.materials.index')->with('message', 'Material successfully deleted.');
+        return redirect()->route('web.materials.index')->with('message', 'Materiaal succesvol verwijderd.');
     }
 }

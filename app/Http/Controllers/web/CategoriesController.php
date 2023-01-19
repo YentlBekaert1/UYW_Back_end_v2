@@ -10,6 +10,7 @@ use App\Repositories\CategoriesRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class CategoriesController extends Controller
 {
@@ -23,6 +24,8 @@ class CategoriesController extends Controller
     {
         $pageSize = $request->page_size ?? 20;
         $categories = Categories::query()->paginate($pageSize);
+        // Session::flash('message', 'This is a message!');
+        // Session::flash('alert-class', 'alert-succes');
         return view('web.categories.index', compact('categories'));
     }
 
@@ -57,7 +60,7 @@ class CategoriesController extends Controller
             'category_image'
         ]));
 
-        return redirect()->route('web.categories.create')->with('message', 'Categorie successfully created.');
+        return redirect()->route('web.categories.index')->with('message', 'Categorie succesvol aangemaakt.');
     }
 
     public function create()
@@ -87,7 +90,7 @@ class CategoriesController extends Controller
             'category_image'
         ]));
 
-        return view('web.categories.edit', compact('categorie'))->with('message', 'Categorie successfully updated.');
+        return redirect()->route('web.categories.index')->with('message', 'Categorie succesvol gewijzigd.');
     }
 
     public function edit(Request $request, Categories $categorie)
@@ -111,6 +114,6 @@ class CategoriesController extends Controller
           //
           $deleted = $repository->forceDelete($categorie);
 
-          return view('web.categories.index')->with('message', 'Categorie successfully deleted.');
+          return redirect()->route('web.categories.index')->with('message', 'Categorie succesvol verwijderd.');
     }
 }

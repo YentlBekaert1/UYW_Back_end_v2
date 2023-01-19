@@ -74,8 +74,8 @@ class OffersController extends Controller
             'images',
             'user_id'
         ]));
-// return $request;
-       return view('web.offers.index', compact('created'));
+
+        return redirect()->route('web.offers.index')->with('message', 'Item succesvol aangemaakt.');
     }
 
     /**
@@ -136,7 +136,7 @@ class OffersController extends Controller
             'country',
             'images'
         ]));
-        return view('web.offers.index', compact('offer'));
+        return redirect()->route('web.offers.index')->with('message', 'Item succesvol gewijzigd.');
     }
 
     public function delete(Request $request, Offers $offer)
@@ -165,7 +165,7 @@ class OffersController extends Controller
 
         $deleted = $repository->forceDelete($offer);
 
-        return view('web.offers.index', compact('offer'));
+        return redirect()->route('web.offers.index')->with('message', 'Item succesvol verwijderd.');
     }
 
 }

@@ -52,7 +52,7 @@ class ApproachController extends Controller
             'name_fr',
         ]));
 
-        return redirect()->route('web.approaches.create')->with('message', 'Approache successfully created.');
+        return redirect()->route('web.approaches.index')->with('message', 'Insteek succesvol aangemaakt.');
     }
 
     public function create()
@@ -83,7 +83,7 @@ class ApproachController extends Controller
             'category_image'
         ]));
 
-        return redirect()->route('web.approaches.edit', compact('approach'))->with('message', 'Approache successfully updated.');
+        return redirect()->route('web.approaches.index')->with('message', 'Insteek succesvol gewijzigd.');
     }
 
     public function edit(Request $request, Approach $approach)
@@ -107,6 +107,6 @@ class ApproachController extends Controller
     {
         $deleted = $repository->forceDelete($approach);
 
-        return view('web.approaches.index')->with('message', 'Approach successfully deleted.');
+        return redirect()->route('web.approaches.index')->with('message', 'Insteek succesvol verwijderd.');
     }
 }

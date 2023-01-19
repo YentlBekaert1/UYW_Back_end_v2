@@ -56,7 +56,7 @@ class SubMaterialController extends Controller
         ]));
 
         $materials = Material::All();
-        return view('web.submaterials.create')->with('message', 'Submaterial successfully created.')->with('materials', $materials);
+        return redirect()->route('web.submaterials.index')->with('message', 'Submateriaal succesvol toegevoegd.');
     }
 
     public function create()
@@ -82,7 +82,7 @@ class SubMaterialController extends Controller
             'material_id'
         ]));
         $materials = Material::All();
-        return view('web.submaterials.edit', compact('submaterial','materials'))->with('message', 'Submaterial successfully updated.');
+        return redirect()->route('web.submaterials.index')->with('message', 'Submateriaal succesvol gewijzigd.');
     }
 
     public function edit(Request $request, SubMaterial $submaterial)
@@ -107,6 +107,6 @@ class SubMaterialController extends Controller
     {
         $deleted = $repository->forceDelete($submaterial);
 
-        return view('web.submaterials.index')->with('message', 'Submaterial successfully deleted.');
+        return redirect()->route('web.submaterials.index')->with('message', 'Submateriaal succesvol verwijderd.');
     }
 }

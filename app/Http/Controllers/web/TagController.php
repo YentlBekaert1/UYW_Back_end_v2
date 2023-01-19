@@ -51,7 +51,7 @@ class TagController extends Controller
             'name_fr'
         ]));
 
-        return redirect()->route('web.tags.create')->with('message', 'Tag successfully created.');
+        return redirect()->route('web.tags.index')->with('message', 'Tag succesvol toegevoegd.');
     }
 
     public function create()
@@ -76,7 +76,7 @@ class TagController extends Controller
             'name_fr'
         ]));
 
-        return view('web.tags.edit', compact('tag'))->with('message', 'Tag successfully updated.');
+        return redirect()->route('web.tags.index')->with('message', 'Tag succesvol gewijzigd.');;
     }
 
     public function edit(Request $request, Tag $tag)
@@ -99,7 +99,7 @@ class TagController extends Controller
     {
         $deleted = $repository->forceDelete($tag);
 
-        return view('web.tags.index')->with('message', 'Tag successfully deleted.');;
+        return redirect()->route('web.tags.index')->with('message', 'Tag succesvol verwijderd.');
     }
 
 }

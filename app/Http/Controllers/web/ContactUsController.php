@@ -82,7 +82,7 @@ class ContactUsController extends Controller
                 ->send(new ContactUsResponseMail2($contact_us));
             }
         }
-        return view('web.contact_us.index');
+        return redirect()->route('web.contact_us.index')->with('message', 'Vraag succesvol beantwoord.');
     }
 
 
@@ -100,8 +100,7 @@ class ContactUsController extends Controller
      */
     public function destroy(ContactUs $contact_us, ContactusRepository $repository)
     {
-        $deleted = $repository->forceDelete($contact_us);
-
-        return view('web.contact_us.index')->with('message', 'Question successfully deleted.');
+    $deleted = $repository->forceDelete($contact_us);
+       return redirect()->route('web.contact_us.index')->with('message', 'Vraag succesvol verwijderd.');
     }
 }

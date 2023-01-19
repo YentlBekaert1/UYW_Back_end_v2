@@ -49,7 +49,7 @@ class FaqController extends Controller
             'description_en',
         ]));
 
-        return redirect()->route('web.faq.index')->with('message', 'Question successfully created.');
+        return redirect()->route('web.faq.index')->with('message', 'Vraag succesvol aangemaakt.');
     }
 
     /**
@@ -88,7 +88,7 @@ class FaqController extends Controller
             'description_en',
         ]));
 
-        return view('web.faq.index');
+        return redirect()->route('web.faq.index')->with('message', 'Vraag succesvol gewijzigd.');
     }
 
     public function delete(Request $request, faq $faq)
@@ -107,6 +107,6 @@ class FaqController extends Controller
     {
         $deleted = $repository->forceDelete($faq);
 
-        return view('web.faq.index')->with('message', 'Question successfully deleted.');
+        return redirect()->route('web.faq.index')->with('message', 'Vraag succesvol verwijderd.');
     }
 }
