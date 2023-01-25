@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Categories') }}
+            {{ __('Categorieën') }}
         </h2>
         <div>
             <a href="/categories" class="underline  text-gray-600 hover:text-green-900">Ga terug</a>
@@ -15,7 +15,7 @@
                     <div class="md:grid md:grid-cols-3 md:gap-6">
                         <div class="md:col-span-1">
                             <div class="px-4 sm:px-0">
-                                <h3 class="text-lg font-medium leading-6 text-gray-900">Edit category.</h3>
+                                <h3 class="text-lg font-medium leading-6 text-gray-900">Wijzig de categorie.</h3>
                             </div>
                         </div>
                         <div class="mt-5 md:mt-0 md:col-span-2">
@@ -35,58 +35,58 @@
                                 <div class="grid grid-cols-2 gap-6">
 
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Naam</label>
                                     <div class=" flex rounded-md shadow-sm">
-                                        <input type="text" id="name" name="name" value="{{$categorie->name}}" autofocus class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        <input type="text" id="name" name="name" value="{{$categorie->name}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                     </div>
                                 </div>
 
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="name" class="block text-sm font-medium text-gray-700">Name Dutch</label>
+                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Naam Nederlands</label>
                                     <div class=" flex rounded-md shadow-sm">
-                                        <input type="text" id="name_nl" name="name_nl" value="{{$categorie->name_nl}}" autofocus class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        <input type="text" id="name_nl" name="name_nl" value="{{$categorie->name_nl}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                     </div>
                                 </div>
 
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="name" class="block text-sm font-medium text-gray-700">Name English</label>
+                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Naam Engels</label>
                                     <div class=" flex rounded-md shadow-sm">
-                                        <input type="text" id="name_en" name="name_en" value="{{$categorie->name_en}}" autofocus class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        <input type="text" id="name_en" name="name_en" value="{{$categorie->name_en}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                     </div>
                                 </div>
 
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="name" class="block text-sm font-medium text-gray-700">Name French</label>
+                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Naam Frans</label>
                                     <div class=" flex rounded-md shadow-sm">
-                                        <input type="text" id="name_fr" name="name_fr" value="{{$categorie->name_fr}}" autofocus class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        <input type="text" id="name_fr" name="name_fr" value="{{$categorie->name_fr}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                     </div>
                                 </div>
 
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                                    <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Beschrijving</label>
                                     <div class=" flex rounded-md shadow-sm">
-                                        <input type="text" id="description" name="description" value="{{$categorie->description}}" autofocus class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        <input type="text" id="description" name="description" value="{{$categorie->description}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                     </div>
                                 </div>
 
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="description" class="block text-sm font-medium text-gray-700">Description Dutch</label>
+                                    <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Beschrijving Nederlands</label>
                                     <div class=" flex rounded-md shadow-sm">
-                                        <input type="text" id="description_nl" name="description_nl" value="{{$categorie->description_nl}}" autofocus class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        <input type="text" id="description_nl" name="description_nl" value="{{$categorie->description_nl}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                     </div>
                                 </div>
 
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="description" class="block text-sm font-medium text-gray-700">Description English</label>
+                                    <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Beschrijving Engels</label>
                                     <div class=" flex rounded-md shadow-sm">
-                                        <input type="text" id="description_en" name="description_en" value="{{$categorie->description_en}}" autofocus class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        <input type="text" id="description_en" name="description_en" value="{{$categorie->description_en}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                     </div>
                                 </div>
 
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="description" class="block text-sm font-medium text-gray-700">Description French</label>
+                                    <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Beschrijving Frans</label>
                                     <div class=" flex rounded-md shadow-sm">
-                                        <input type="text" id="description_fr" name="description_fr" value="{{$categorie->description_fr}}" autofocus class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        <input type="text" id="description_fr" name="description_fr" value="{{$categorie->description_fr}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                     </div>
                                 </div>
 

@@ -2,7 +2,7 @@
     <x-slot name="header" >
             <div  class="grid grid-cols-1 md:grid-cols-2">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    {{ __('Approaches') }}
+                    {{ __('Insteek') }}
                 </h2>
                 <a href="{{route('web.approaches.create')}}" style="width: fit-content; justify-self: end; background-color: #42998B; color: white; padding: 0.2rem 2rem; border-radius: 5px;">Maak een nieuw insteek aan</a>
             </div>

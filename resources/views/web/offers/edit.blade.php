@@ -15,8 +15,8 @@
                     <div class="md:grid md:grid-cols-3 md:gap-6">
                         <div class="md:col-span-1">
                             <div class="px-4 sm:px-0">
-                                <h3 class="text-lg font-medium leading-6 text-gray-900">Edit this item.</h3>
-                                <p class="mt-1 text-sm text-gray-600">This info is shared on the applications.</p>
+                                <h3 class="text-lg font-medium leading-6 text-gray-900">Wijzig het item</h3>
+                                <p class="mt-1 text-sm text-gray-600">Hier kan u de data van het item wijzigen.</p>
                             </div>
                         </div>
                         <div class="mt-5 md:mt-0 md:col-span-2">
@@ -36,28 +36,24 @@
                                 <div class="grid grid-cols-2 gap-6">
 
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="title" class="block text-sm font-medium text-gray-700"> Title </label>
+                                    <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> Titel </label>
                                     <div class=" flex rounded-md shadow-sm">
-                                        <input type="text" id="title" name="title" value="{{$offer->title}}" autofocus class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        <input type="text" id="title" name="title" value="{{$offer->title}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                     </div>
                                 </div>
 
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="description" class="block text-sm font-medium text-gray-700"> Description </label>
+                                    <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> Beschrijving </label>
                                     <div class=" flex rounded-md shadow-sm">
-                                    <textarea rows="4" cols="50" type="text" id="description" name="description" value="" autofocus class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300  rounded-md">
-                                    @foreach($offer->description as $des )
-                                           {{$des}}
-                                    @endforeach
-                                    </textarea>
+                                    <textarea rows="4" cols="50" type="text" id="description" name="description" value="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">{{$offer->description}}</textarea>
                                     </div>
                                 </div>
 
 
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="category" class="block text-sm font-medium text-gray-700"> Category </label>
+                                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> Categorie </label>
                                     <div class=" flex rounded-md shadow-sm">
-                                        <select id ="category" name="category" class="form-control mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        <select id ="category" name="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                         @foreach($categories as $category )
                                             <option value="{{ $category->id }}" @if($offer->categories_id == $category->id ) selected @endif>{{ $category->name }}</option>
                                         @endforeach
@@ -66,9 +62,9 @@
                                 </div>
 
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="approach" class="block text-sm font-medium text-gray-700"> Approach </label>
+                                    <label for="approach" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> Via welke applicatie toegevoegd? (insteek/approach)  </label>
                                     <div class=" flex rounded-md shadow-sm">
-                                        <select id ="approach" name="approach" class="form-control mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        <select id ="approach" name="approach" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                         @foreach($approaches as $approach)
                                             <option value="{{ $approach->id }}" @if($offer->approaches_id == $approach->id ) selected @endif>{{ $approach->name }}</option>
                                         @endforeach
@@ -77,10 +73,10 @@
                                 </div>
 
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="material" class="block text-sm font-medium text-gray-700"> Materials </label>
+                                    <label for="material" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Materiaal</label>
                                     <div class=" flex rounded-md shadow-sm">
-                                        <select id ="material" name="material" class="form-control mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                        <option value="">Select</option>
+                                        <select id ="material" name="material" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+                                        <option value="">Selecteer een materiaal</option>
                                         @foreach($materials as $material)
                                             <option value="{{ $material->id }}" @if(old('material') == $material->id ) selected @endif>{{ $material->name }}</option>
                                         @endforeach
@@ -89,21 +85,21 @@
                                 </div>
 
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="submaterial" class="block text-sm font-medium text-gray-700"> Submaterials </label>
+                                    <label for="submaterial" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Submateriaal</label>
                                     <div class=" flex rounded-md shadow-sm">
-                                        <select id="submaterial" name="submaterial" class="form-control mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                            <option value="">Select first a material</option>
+                                        <select id="submaterial" name="submaterial" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+                                            <option value="">Selecteer eerst een materiaal</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-span-3 sm:col-span-2">
-                                       <button type="button" id="add_material_submaterial" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Add material/submaterial to list</button>
+                                       <button type="button" id="add_material_submaterial" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Voeg het material/submaterial toe</button>
                                 </div>
                                 <div class="col-span-3 sm:col-span-2">
                                     <div>
                                         <input type="hidden" name="materials" id="materials_array" value="">
                                         <input type="hidden" name="submaterials" id="submaterials_array" value="">
-                                        <h4>Material/submaterial list:</h4>
+                                        <h4>Lijst van Materiaal/submateriaal:</h4>
                                         <div id="material_submaterial_list">
                                         <script>var materials_array = new Array;
                                                 var submaterials_array = new Array;</script>
@@ -122,9 +118,9 @@
                                 </div>
 
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="tag" class="block text-sm font-medium text-gray-700"> Tags </label>
+                                    <label for="tag" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tags</label>
                                     <div class=" flex rounded-md shadow-sm">
-                                        <select id="tag" name="tag" class="form-control mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        <select id="tag" name="tag" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                         @foreach($tags as $tag)
                                             <option value="{{ $tag->id }}" @if(old('tag') == $tag->id ) selected @endif>{{ $tag->name }}</option>
                                         @endforeach
@@ -132,22 +128,22 @@
                                     </div>
                                 </div>
                                 <div class="col-span-3 sm:col-span-2">
-                                    <button type="button" id="add_tag" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Add tag to list</button>
+                                    <button type="button" id="add_tag" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Voeg toe aan tag lijst</button>
                                 </div>
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="newtag" class="block text-sm font-medium text-gray-700"> New Tag </label>
+                                    <label for="newtag" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nieuwe tag aanmaken</label>
                                     <div class=" flex rounded-md shadow-sm">
-                                        <input type="text" name="newtag" id="newtag" class="focus:ring-green-500 focus:border-green-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300">
+                                        <input type="text" name="newtag" id="newtag" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                     </div>
                                 </div>
                                 <div class="col-span-3 sm:col-span-2">
-                                     <button type="button" id="add_new_tag" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Add new tag to list</button>
+                                     <button type="button" id="add_new_tag" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Voeg toe aan tag lijst</button>
                                 </div>
                                 <div class="col-span-3 sm:col-span-2">
                                     <div>
                                         <input type="hidden" name="tags" id="tags_array" value="">
                                         <input type="hidden" name="newtags" id="newtags_array" value="">
-                                        <h4>Tags list:</h4>
+                                        <h4>Lijst met toegevoegde tags::</h4>
                                         <div id="tags_list">
                                         <script> var tag_array = new Array;</script>
                                         @foreach($offer->tags as $tag)
@@ -159,21 +155,21 @@
                                 </div>
 
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="contact" class="block text-sm font-medium text-gray-700"> Contact </label>
+                                    <label for="contact" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> Contact </label>
                                     <div class=" flex rounded-md shadow-sm">
-                                    <input type="text" name="contact" id="contact" value="{{$offer->contact}}" class="focus:ring-green-500 focus:border-green-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300">
+                                    <input type="text" name="contact" id="contact" value="{{$offer->contact}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                     </div>
                                 </div>
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="url" class="block text-sm font-medium text-gray-700"> URL </label>
+                                    <label for="url" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> URL </label>
                                     <div class="mt-1 flex rounded-md shadow-sm">
-                                    <input type="text" name="url" id="url" value="{{$offer->url}}" class="focus:ring-green-500 focus:border-green-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300">
+                                    <input type="text" name="url" id="url" value="{{$offer->url}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                     </div>
                                 </div>
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="user_id" class="block text-sm font-medium text-gray-700"> User </label>
+                                    <label for="user_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> User </label>
                                     <div class=" flex rounded-md shadow-sm">
-                                        <select id ="user_id" name="user_id" class="form-control mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        <select id ="user_id" name="user_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500d">
                                         @foreach($users as $user)
                                             <option value="{{ $user->id }}" @if($offer->user_id == $user->id ) selected @endif>{{ $user->name }}</option>
                                         @endforeach
@@ -182,18 +178,18 @@
                                 </div>
 
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="status" class="block text-sm font-medium text-gray-700"> Status </label>
+                                    <label for="status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> Status </label>
                                     <div class=" flex rounded-md shadow-sm">
-                                        <select id ="category" name="status" class="form-control mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                            <option value="1" @if($offer->status == 1) selected @endif>online</option>
-                                            <option value="0" @if($offer->status == 0 ) selected @endif>offline</option>
+                                        <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+                                            <option value="1" @if($offer->status == 1) selected @endif>Online</option>
+                                            <option value="0" @if($offer->status == 0 ) selected @endif>Offline</option>
                                         </select>
                                     </div>
                                 </div>
 
 
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label class="block text-sm font-medium text-gray-700"> Images </label>
+                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Afbeeldingen</label>
                                     <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                         <div class="space-y-1 text-center">
                                             <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
@@ -214,29 +210,28 @@
                                 </div>
                                 @if($offer->location)
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="street" class="block text-sm font-medium text-gray-700"> Street and number </label>
+                                    <label for="street" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Straat en huisnummer</label>
                                     <div class="mt-1 flex rounded-md shadow-sm">
-
-                                        <input type="text" name="street" id="streetnumber" value="{{$offer->location->street}}" class="focus:ring-green-500 focus:border-green-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" >
+                                        <input type="text" name="street" id="streetnumber" value="{{$offer->location->street}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" >
                                     </div>
                                 </div>
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="city" class="block text-sm font-medium text-gray-700"> City </label>
+                                    <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gemeente</label>
                                     <div class="mt-1 flex rounded-md shadow-sm">
-                                    <input type="text" name="city" id="city" value="{{$offer->location->city}}" class="focus:ring-green-500 focus:border-green-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" >
+                                    <input type="text" name="city" id="city" value="{{$offer->location->city}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" >
                                     </div>
                                 </div>
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="country" class="block text-sm font-medium text-gray-700"> Country </label>
+                                    <label for="country" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Land</label>
                                     <div class="mt-1 flex rounded-md shadow-sm">
-                                    <input type="text" name="country" id="country" value="{{$offer->location->country}}" class="focus:ring-green-500 focus:border-green-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" >
+                                    <input type="text" name="country" id="country" value="{{$offer->location->country}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" >
                                     </div>
                                 </div>
                                 <div class="col-span-3 sm:col-span-2">
                                    <button type="button" id="search_location" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Search Location</button>
                                 </div>
                                 <div class="col-span-3 sm:col-span-2">
-                                    <h4>Choosed location:</h4>
+                                    <h4>Gevonden locatie:</h4>
                                     <input type="hidden" name="lat" id="lat">
                                     <input type="hidden" name="lon" id="lon">
                                     <div id="choosed_location">
@@ -245,29 +240,29 @@
                                 </div>
                                @else
                                <div class="col-span-3 sm:col-span-2">
-                                    <label for="street" class="block text-sm font-medium text-gray-700"> Street and number </label>
+                                    <label for="street" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Straat en huisnummer</label>
                                     <div class="mt-1 flex rounded-md shadow-sm">
 
-                                        <input type="text" name="street" id="streetnumber" value="" class="focus:ring-green-500 focus:border-green-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" >
+                                        <input type="text" name="street" id="streetnumber" value="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" >
                                     </div>
                                 </div>
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="city" class="block text-sm font-medium text-gray-700"> City </label>
+                                    <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gemeente</label>
                                     <div class="mt-1 flex rounded-md shadow-sm">
-                                    <input type="text" name="city" id="city" value="" class="focus:ring-green-500 focus:border-green-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" >
+                                    <input type="text" name="city" id="city" value="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" >
                                     </div>
                                 </div>
                                 <div class="col-span-3 sm:col-span-2">
-                                    <label for="country" class="block text-sm font-medium text-gray-700"> Country </label>
+                                    <label for="country" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Land</label>
                                     <div class="mt-1 flex rounded-md shadow-sm">
-                                    <input type="text" name="country" id="country" value="" class="focus:ring-green-500 focus:border-green-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" >
+                                    <input type="text" name="country" id="country" value="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" >
                                     </div>
                                 </div>
                                 <div class="col-span-3 sm:col-span-2">
                                    <button type="button" id="search_location" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Search Location</button>
                                 </div>
                                 <div class="col-span-3 sm:col-span-2">
-                                    <h4>Choosed location:</h4>
+                                    <h4>Gevonden locatie:</h4>
                                     <input type="hidden" name="lat" id="lat">
                                     <input type="hidden" name="lon" id="lon">
                                     <div id="choosed_location">
@@ -277,7 +272,7 @@
                                @endif()
                             </div>
                             <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                                <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Save</button>
+                                <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Bewaar item</button>
                             </div>
                             </div>
                         </form>

@@ -263,7 +263,7 @@ class UserController extends Controller
                 'totalOffers' =>  $totalOffers,
                 'totalLikes' =>  $totalLikes,
                 'totalViews' =>  $totalViews,
-                'useroffers' =>  OffersResource::collection($offers),
+                'useroffers' =>  $offers,
             ]);
         }
         else{

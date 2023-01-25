@@ -2,11 +2,11 @@
     <x-slot name="header">
         <div class="grid grid-cols-1 md:grid-cols-2">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Locations') }}
+                {{ __('Locaties') }}
             </h2>
         </div>
     </x-slot>
-    
+
     @if (session()->has('message'))
     <div class="mt-3 max-w-7xl mx-auto sm:px-6 lg:px-8">
         @if (session('alert-class') == 'alert-danger')

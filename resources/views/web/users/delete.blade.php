@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Delete User') }}
+            {{ __('Verwijder gebruiker') }}
         </h2>
     </x-slot>
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
@@ -17,9 +17,9 @@
                                 </svg>
                             </div>
                             <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                <h3 class="text-lg font-medium leading-6 text-gray-900" id="modal-title">Delete User</h3>
+                                <h3 class="text-lg font-medium leading-6 text-gray-900" id="modal-title">Verwijder gebruiker</h3>
                                 <div class="mt-2">
-                                    <p class="text-sm text-gray-500">Are you sure you want to delete this user? All of your data will be permanently removed. This action cannot be undone.</p>
+                                    <p class="text-sm text-gray-500">Bent u zeker dat u deze gebruiker wil verwijderen? Alle dat is permanent verwijderd. Deze actie kan niet worden ontdaan.</p>
                                 </div>
                             </div>
                         </div>
